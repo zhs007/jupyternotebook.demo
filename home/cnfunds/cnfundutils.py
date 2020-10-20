@@ -1,6 +1,9 @@
 import pandas as pd
 import json
 
+def loadFundResult(fn: str) -> pd.DataFrame:
+    return pd.read_csv(fn, dtype={"code": "str"})
+
 def loadFundBasicInfo(fn: str) -> pd.DataFrame:
     return pd.read_excel(fn, dtype={"code": "str"})
 
