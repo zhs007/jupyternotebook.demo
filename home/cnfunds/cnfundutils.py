@@ -47,7 +47,7 @@ def procFundBasicInfoTypes(df: pd.DataFrame):
     df['createtimey'] = df.apply(
         lambda x: datetime.strptime(x.createtime, '%Y-%m-%d').year, axis=1)
     df['createtimem'] = df.apply(
-        lambda x: datetime.strptime(x.createtime, '%Y-%m-%d').month, axis=1)        
+        lambda x: datetime.strptime(x.createtime, '%Y-%m-%d').month, axis=1)
 
 
 def onProcSize(v):
@@ -66,4 +66,10 @@ def procFundBasicInfoSize(df: pd.DataFrame):
 
 
 def mergeFundResultAndBasic(dfr: pd.DataFrame, dfb: pd.DataFrame) -> pd.DataFrame:
-    return dfr.drop(columns=['tags', 'createtime']).replace([np.inf, -np.inf, np.NaN], 0).join(dfb.set_index('code'), on='code')
+    if 'tags' in dfr.columns and 'createtime' in dfr.columns:
+        return dfr.drop(columns=['tags', 'createtime']).replace([np.inf, -np.inf, np.NaN], 0).join(dfb.set_index('code'), on='code')
+
+    if 'tags' in dfr.columns:
+        return dfr.drop(columns=['tags']).replace([np.inf, -np.inf, np.NaN], 0).join(dfb.set_index('code'), on='code')        
+
+    return dfr.replace([np.inf, -np.inf, np.NaN], 0).join(dfb.set_index('code'), on='code')
