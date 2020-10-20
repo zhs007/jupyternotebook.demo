@@ -1,6 +1,7 @@
 import pandas as pd
 import numpy as np
 import json
+from datetime import datetime
 
 
 def loadFundResult(fn: str) -> pd.DataFrame:
@@ -42,6 +43,11 @@ def procFundBasicInfoTypes(df: pd.DataFrame):
 
     lstType2 = getFundBasicInfoType2(df)
     df['type2'] = df.apply(lambda x: onProcType2(x, lstType2), axis=1)
+
+    df['createtimey'] = df.apply(
+        lambda x: datetime.strptime(x.createtime, '%Y-%m-%d').year, axis=1)
+    df['createtimem'] = df.apply(
+        lambda x: datetime.strptime(x.createtime, '%Y-%m-%d').month, axis=1)        
 
 
 def onProcSize(v):
