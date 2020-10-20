@@ -1,8 +1,11 @@
 import pandas as pd
+import numpy as np
 import json
+
 
 def loadFundResult(fn: str) -> pd.DataFrame:
     return pd.read_csv(fn, dtype={"code": "str"})
+
 
 def loadFundBasicInfo(fn: str) -> pd.DataFrame:
     return pd.read_excel(fn, dtype={"code": "str"})
@@ -22,12 +25,14 @@ def getFundBasicInfoType2(df: pd.DataFrame):
 
     return lstType2
 
+
 def onProcType2(v, lstType2):
     for i in range(len(lstType2)):
         if v.tags.find(lstType2[i]) >= 0:
             return lstType2[i]
 
     return ''
+
 
 def procFundBasicInfoTypes(df: pd.DataFrame):
     df['type0'] = df.apply(
@@ -37,6 +42,7 @@ def procFundBasicInfoTypes(df: pd.DataFrame):
 
     lstType2 = getFundBasicInfoType2(df)
     df['type2'] = df.apply(lambda x: onProcType2(x, lstType2), axis=1)
+
 
 def onProcSize(v):
     if type(v['size']) != str:
@@ -48,5 +54,10 @@ def onProcSize(v):
 
     return 0
 
+
 def procFundBasicInfoSize(df: pd.DataFrame):
     df['size0'] = df.apply(onProcSize, axis=1)
+
+
+def mergeFundResultAndBasic(dfr: pd.DataFrame, dfb: pd.DataFrame) -> pd.DataFrame:
+    return dfr.drop(columns=['tags', 'createtime']).replace([np.inf, -np.inf, np.NaN], 0).join(dfb.set_index('code'), on='code')
