@@ -1,7 +1,26 @@
 import pandas as pd
 import numpy as np
+import matplotlib
+from matplotlib import font_manager
+import matplotlib.pyplot as plt
 import json
 from datetime import datetime
+
+def init():
+    pd.set_option('max_columns', 1000)
+    pd.set_option('max_row', 300)
+    pd.set_option('display.float_format', lambda x: '%.5f' % x)
+    
+    plt.rcParams['figure.figsize'] = (16.0, 8.0)
+    
+    font_dirs = ["/usr/local/share/fonts"]
+    font_files = font_manager.findSystemFonts(fontpaths=font_dirs)
+    
+    for font_file in font_files:
+        font_manager.fontManager.addfont(font_file)
+        
+    hfont = matplotlib.font_manager.FontProperties(fname='/usr/local/share/fonts/SourceHanSans-Normal.ttc')
+    plt.rcParams['font.family'] = hfont.get_name()
 
 
 def loadFundResult(fn: str) -> pd.DataFrame:
