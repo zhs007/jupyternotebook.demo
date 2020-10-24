@@ -6,20 +6,22 @@ import matplotlib.pyplot as plt
 import json
 from datetime import datetime
 
+
 def init():
     pd.set_option('max_columns', 1000)
     pd.set_option('max_row', 300)
     pd.set_option('display.float_format', lambda x: '%.5f' % x)
-    
+
     plt.rcParams['figure.figsize'] = (16.0, 8.0)
-    
+
     font_dirs = ["/usr/local/share/fonts"]
     font_files = font_manager.findSystemFonts(fontpaths=font_dirs)
-    
+
     for font_file in font_files:
         font_manager.fontManager.addfont(font_file)
-        
-    hfont = matplotlib.font_manager.FontProperties(fname='/usr/local/share/fonts/SourceHanSans-Normal.ttc')
+
+    hfont = matplotlib.font_manager.FontProperties(
+        fname='/usr/local/share/fonts/SourceHanSans-Normal.ttc')
     plt.rcParams['font.family'] = hfont.get_name()
 
 
@@ -89,6 +91,60 @@ def mergeFundResultAndBasic(dfr: pd.DataFrame, dfb: pd.DataFrame) -> pd.DataFram
         return dfr.drop(columns=['tags', 'createtime']).replace([np.inf, -np.inf, np.NaN], 0).join(dfb.set_index('code'), on='code')
 
     if 'tags' in dfr.columns:
-        return dfr.drop(columns=['tags']).replace([np.inf, -np.inf, np.NaN], 0).join(dfb.set_index('code'), on='code')        
+        return dfr.drop(columns=['tags']).replace([np.inf, -np.inf, np.NaN], 0).join(dfb.set_index('code'), on='code')
 
     return dfr.replace([np.inf, -np.inf, np.NaN], 0).join(dfb.set_index('code'), on='code')
+
+
+def parseManager(v, data):
+    if type(v['managers']) != str:
+        return
+
+    objManagers = json.loads(v['managers'])
+    for i in range(len(objManagers)):
+        if 'name' not in objManagers[i].keys():
+            continue
+
+        data['name'].append(objManagers[i]['name'])
+
+        if 'sex' in objManagers[i].keys():
+            data['sex'].append(objManagers[i]['sex'])
+        else:
+            data['sex'].append(True)
+
+        data['education'].append(objManagers[i]['education'])
+
+        if 'country' in objManagers[i].keys():
+            data['country'].append(objManagers[i]['country'])
+        else:
+            data['country'].append('未知')
+
+        data['resume'].append(objManagers[i]['resume'])
+
+        if 'startTime' in objManagers[i].keys():
+            data['startDate'].append(datetime.fromtimestamp(
+                objManagers[i]['startTime']).strftime('%Y%m%d'))
+        else:
+            data['startDate'].append('0')
+
+        if 'endTime' in objManagers[i].keys():
+            data['endDate'].append(datetime.fromtimestamp(
+                objManagers[i]['endTime']).strftime('%Y%m%d'))
+        else:
+            data['endDate'].append('99999999')
+
+        data['fundcode'].append(v['code'])
+        data['fundname'].append(v['name'])
+        data['company'].append(v['company'])
+
+    return
+
+
+def getManagers(df: pd.DataFrame):
+    data = {'name': [], 'sex': [], 'education': [], 'country': [], 'resume': [
+    ], 'startDate': [], 'endDate': [], 'fundcode': [], 'fundname': [], 'company': []}
+
+    for index, row in df.iterrows():
+        carr = parseManager(row, data)
+
+    return data
