@@ -96,6 +96,15 @@ def mergeFundResultAndBasic(dfr: pd.DataFrame, dfb: pd.DataFrame) -> pd.DataFram
     return dfr.replace([np.inf, -np.inf, np.NaN], 0).join(dfb.set_index('code'), on='code')
 
 
+def findFundManagerResult(manager, name):
+    if 'results' in manager.keys() and isinstance(manager['results'], list):
+        for i in range(len(manager['results'])):
+            if manager['results'][i]['name'] == name:
+                return manager['results'][i]
+
+    return None
+
+
 def parseManager(v, data):
     if type(v['managers']) != str:
         return
@@ -137,12 +146,84 @@ def parseManager(v, data):
         data['fundname'].append(v['name'])
         data['company'].append(v['company'])
 
+        result0 = findFundManagerResult(objManagers[i], 'full')
+        if result0 == None:
+            data['maxdrawdown'].append(0)
+            data['sharpe'].append(0)
+            data['annualizedreturns'].append(0)
+            data['annualizedvolatility'].append(0)
+            data['totalreturns'].append(0)
+        else:
+            if 'maxDrawdown' in result0.keys():
+                data['maxdrawdown'].append(result0['maxDrawdown'])
+            else:
+                data['maxdrawdown'].append(0)
+
+            if 'sharpe' in result0.keys():
+                data['sharpe'].append(result0['sharpe'])
+            else:
+                data['sharpe'].append(0)
+
+            if 'annualizedReturns' in result0.keys():
+                data['annualizedreturns'].append(result0['annualizedReturns'])
+            else:
+                data['annualizedreturns'].append(0)
+
+            if 'annualizedVolatility' in result0.keys():
+                data['annualizedvolatility'].append(
+                    result0['annualizedVolatility'])
+            else:
+                data['annualizedvolatility'].append(0)
+
+            if 'totalReturns' in result0.keys():
+                data['totalreturns'].append(result0['totalReturns'])
+            else:
+                data['totalreturns'].append(0)
+
+        result1 = findFundManagerResult(objManagers[i], 'off_3m')
+        if result1 == None:
+            data['maxdrawdown3m'].append(0)
+            data['sharpe3m'].append(0)
+            data['annualizedreturns3m'].append(0)
+            data['annualizedvolatility3m'].append(0)
+            data['totalreturns3m'].append(0)
+        else:
+            if 'maxDrawdown' in result1.keys():
+                data['maxdrawdown3m'].append(result1['maxDrawdown'])
+            else:
+                data['maxdrawdown3m'].append(0)
+
+            if 'sharpe' in result1.keys():
+                data['sharpe3m'].append(result1['sharpe'])
+            else:
+                data['sharpe3m'].append(0)
+
+            if 'annualizedReturns' in result1.keys():
+                data['annualizedreturns3m'].append(
+                    result1['annualizedReturns'])
+            else:
+                data['annualizedreturns3m'].append(0)
+
+            if 'annualizedVolatility' in result1.keys():
+                data['annualizedvolatility3m'].append(
+                    result1['annualizedVolatility'])
+            else:
+                data['annualizedvolatility3m'].append(0)
+
+            if 'totalReturns' in result1.keys():
+                data['totalreturns3m'].append(result1['totalReturns'])
+            else:
+                data['totalreturns3m'].append(0)
+
     return
 
 
 def getManagers(df: pd.DataFrame):
-    data = {'name': [], 'sex': [], 'education': [], 'country': [], 'resume': [
-    ], 'startDate': [], 'endDate': [], 'fundcode': [], 'fundname': [], 'company': []}
+    data = {'name': [], 'sex': [], 'education': [], 'country': [], 'resume': [],
+            'startDate': [], 'endDate': [], 'fundcode': [], 'fundname': [], 'company': [],
+            'maxdrawdown': [], 'sharpe': [], 'annualizedreturns': [], 'annualizedvolatility': [],
+            'totalreturns': [], 'maxdrawdown3m': [], 'sharpe3m': [], 'annualizedreturns3m': [],
+            'annualizedvolatility3m': [], 'totalreturns3m': []}
 
     for index, row in df.iterrows():
         carr = parseManager(row, data)
