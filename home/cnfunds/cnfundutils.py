@@ -130,17 +130,20 @@ def parseManager(v, data):
 
         data['resume'].append(objManagers[i]['resume'])
 
+        dtEnd = datetime.now()
+        if 'endTime' in objManagers[i].keys():
+            dtEnd = datetime.fromtimestamp(objManagers[i]['endTime'])
+            data['endDate'].append(dtEnd.strftime('%Y%m%d'))
+        else:
+            data['endDate'].append(99999999)
+
         if 'startTime' in objManagers[i].keys():
-            data['startDate'].append(datetime.fromtimestamp(
-                objManagers[i]['startTime']).strftime('%Y%m%d'))
+            dtStart = datetime.fromtimestamp(objManagers[i]['startTime'])
+            data['startDate'].append(dtStart.strftime('%Y%m%d'))
+            data['workdays'].append((dtEnd - dtStart).days)
         else:
             data['startDate'].append('0')
-
-        if 'endTime' in objManagers[i].keys():
-            data['endDate'].append(datetime.fromtimestamp(
-                objManagers[i]['endTime']).strftime('%Y%m%d'))
-        else:
-            data['endDate'].append('99999999')
+            data['workdays'].append(0)
 
         data['fundcode'].append(v['code'])
         data['fundname'].append(v['name'])
@@ -223,7 +226,7 @@ def getManagers(df: pd.DataFrame):
             'startDate': [], 'endDate': [], 'fundcode': [], 'fundname': [], 'company': [],
             'maxdrawdown': [], 'sharpe': [], 'annualizedreturns': [], 'annualizedvolatility': [],
             'totalreturns': [], 'maxdrawdown3m': [], 'sharpe3m': [], 'annualizedreturns3m': [],
-            'annualizedvolatility3m': [], 'totalreturns3m': []}
+            'annualizedvolatility3m': [], 'totalreturns3m': [], 'workdays': []}
 
     for index, row in df.iterrows():
         carr = parseManager(row, data)
