@@ -183,7 +183,8 @@ def parseManager(v, data):
             else:
                 data['totalreturns'].append(0)
 
-            data['endDate'][-1] = datetime.fromtimestamp(result0['endTime']).strftime('%Y%m%d')
+            data['endDate'][-1] = datetime.fromtimestamp(
+                result0['endTime']).strftime('%Y%m%d')
 
         result1 = findFundManagerResult(objManagers[i], 'off_3m')
         if result1 == None:
@@ -234,3 +235,27 @@ def getManagers(df: pd.DataFrame):
         carr = parseManager(row, data)
 
     return data
+
+
+def onProcWorkDays0(v):
+    days = 0
+    if v['endDate'] == 99999999:
+        if v['startDate'] > 0:
+            days = (datetime.now() -
+                    datetime.strptime(str(v['startDate']), '%Y%m%d')).days
+    else:
+        if v['startDate'] > 0:
+            days = (datetime.strptime(str(
+                v['endDate']), '%Y%m%d') - datetime.strptime(str(v['startDate']), '%Y%m%d')).days
+
+    return days
+
+
+def procManagersWorkDays(dfManagers: pd.DataFrame):
+    dfManagers[['startDate', 'endDate']] = dfManagers[[
+        'startDate', 'endDate']].astype(int)
+    dfNew = dfManagers.groupby(['name']).agg({'annualizedreturns': np.mean, 'fundcode': pd.Series.nunique, 'company': pd.Series.nunique,
+                                              'workdays': np.sum, 'totalreturns': np.sum, 'startDate': np.min, 'endDate': np.max}).reset_index()
+    dfNew['workdays0'] = dfNew.apply(onProcWorkDays0, axis=1)
+
+    return dfNew
