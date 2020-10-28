@@ -183,6 +183,8 @@ def parseManager(v, data):
             else:
                 data['totalreturns'].append(0)
 
+            data['endDate'][-1] = datetime.fromtimestamp(result0['endTime']).strftime('%Y%m%d')
+
         result1 = findFundManagerResult(objManagers[i], 'off_3m')
         if result1 == None:
             data['maxdrawdown3m'].append(0)
