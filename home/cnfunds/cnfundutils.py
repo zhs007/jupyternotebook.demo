@@ -58,9 +58,9 @@ def onProcType2(v, lstType2):
 
 def procFundBasicInfoTypes(df: pd.DataFrame):
     df['type0'] = df.apply(
-        lambda x: 1 if x.tags.find("开放式") >= 0 else 0, axis=1)
+        lambda x: "开放式" if x.tags.find("开放式") >= 0 else "封闭式", axis=1)
     df['type1'] = df.apply(
-        lambda x: 1 if x.tags.find("低风险") >= 0 else 0, axis=1)
+        lambda x: "低风险" if x.tags.find("低风险") >= 0 else "高风险", axis=1)
 
     lstType2 = getFundBasicInfoType2(df)
     df['type2'] = df.apply(lambda x: onProcType2(x, lstType2), axis=1)
