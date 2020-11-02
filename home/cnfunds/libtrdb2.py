@@ -1,7 +1,10 @@
+import pandas as pd
 import grpc
 import tradingdb2_pb2
 import tradingdb2_pb2_grpc
 import yaml
+from datetime import datetime
+import plotly.express as px
 
 
 def loadConfig(fn: str):
@@ -13,7 +16,7 @@ def loadConfig(fn: str):
     return cfg
 
 
-def getCandles(servAddr: str, token: str, market: str, symbol: str, tsStart: int, tsEnd: int, tags):
+def getFundValues(servAddr: str, token: str, market: str, symbol: str, tsStart: int, tsEnd: int) -> pd.DataFrame:
     channel = grpc.insecure_channel(servAddr)
     stub = tradingdb2_pb2_grpc.TradingDB2ServiceStub(channel)
 
@@ -22,8 +25,21 @@ def getCandles(servAddr: str, token: str, market: str, symbol: str, tsStart: int
         market=market,
         symbol=symbol,
         tsStart=tsStart,
-        tsEnd=tsEnd,
-        tags=tags
+        tsEnd=tsEnd
     ))
-    for candle in response:
-        print(candle)
+
+    fv = {'date': [], 'close': []}
+    for curres in response:
+        for candle in curres.candles.candles:
+            fv['date'].append(datetime.fromtimestamp(
+                candle.ts).strftime('%Y-%m-%d'))
+            fv['close'].append(candle.close / 10000.0)
+
+    return pd.DataFrame(fv)
+
+
+def showCNFund(cfg, code):
+    dffund = getFundValues(
+        cfg['servaddr'], cfg['token'], 'cnfunds', code, 0, 0)
+    fig = px.line(dffund, x="date", y="close", title=code)
+    fig.show()

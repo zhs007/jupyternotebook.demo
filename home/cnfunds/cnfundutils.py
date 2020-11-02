@@ -25,6 +25,12 @@ def init():
     plt.rcParams['font.family'] = hfont.get_name()
 
 
+def init2():
+    pd.set_option('max_columns', 1000)
+    pd.set_option('max_row', 300)
+    pd.set_option('display.float_format', lambda x: '%.5f' % x)
+
+
 def loadFundResult(fn: str) -> pd.DataFrame:
     return pd.read_csv(fn, dtype={"code": "str"})
 
