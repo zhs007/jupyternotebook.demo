@@ -5,6 +5,8 @@ from matplotlib import font_manager
 import matplotlib.pyplot as plt
 import json
 from datetime import datetime
+from plotly.subplots import make_subplots
+import plotly.graph_objects as go
 
 
 def init():
@@ -59,10 +61,14 @@ def onProcType2(v, lstType2):
         if v.tags.find(lstType2[i]) >= 0:
             return lstType2[i]
 
-    return ''
+    return '其他'
 
 
-def procFundBasicInfoTypes(df: pd.DataFrame):
+def procFundBasicInfoTypes(df: pd.DataFrame, et: str):
+    """处理dfFunds基本的数据"""
+
+    ett = datetime.strptime(et, '%Y-%m-%d')
+
     df['type0'] = df.apply(
         lambda x: "开放式" if x.tags.find("开放式") >= 0 else "封闭式", axis=1)
     df['type1'] = df.apply(
@@ -75,6 +81,10 @@ def procFundBasicInfoTypes(df: pd.DataFrame):
         lambda x: datetime.strptime(x.createtime, '%Y-%m-%d').year, axis=1)
     df['createtimem'] = df.apply(
         lambda x: datetime.strptime(x.createtime, '%Y-%m-%d').month, axis=1)
+    df['livedays'] = df.apply(
+        lambda x: (ett - datetime.strptime(x.createtime, '%Y-%m-%d')).days, axis=1)
+    df['liveyears'] = df.apply(
+        lambda x: (ett - datetime.strptime(x.createtime, '%Y-%m-%d')).days / 365.0, axis=1)
 
 
 def onProcSize(v):
@@ -88,11 +98,27 @@ def onProcSize(v):
     return 0
 
 
+def onProcSize1(v):
+    if v['size0'] < 1:
+        return 5
+
+    if v['size0'] > 10:
+        return 50
+
+    return v['size0'] * 5
+
+
 def procFundBasicInfoSize(df: pd.DataFrame):
     df['size0'] = df.apply(onProcSize, axis=1)
+    df['size1'] = df.apply(onProcSize1, axis=1)
 
 
 def mergeFundResultAndBasic(dfr: pd.DataFrame, dfb: pd.DataFrame) -> pd.DataFrame:
+    """合并FundResults和Funds。
+
+    这里考虑了不同版本的数据兼容性。
+    """
+
     if 'tags' in dfr.columns and 'createtime' in dfr.columns:
         return dfr.drop(columns=['tags', 'createtime']).replace([np.inf, -np.inf, np.NaN], 0).join(dfb.set_index('code'), on='code')
 
@@ -100,6 +126,17 @@ def mergeFundResultAndBasic(dfr: pd.DataFrame, dfb: pd.DataFrame) -> pd.DataFram
         return dfr.drop(columns=['tags']).replace([np.inf, -np.inf, np.NaN], 0).join(dfb.set_index('code'), on='code')
 
     return dfr.replace([np.inf, -np.inf, np.NaN], 0).join(dfb.set_index('code'), on='code')
+
+
+def onProcDayInTotalReturn(v):
+    if v['totalReturn'] == 0:
+        return 0
+
+    return v['permaxupday'] / v['totalReturn']
+
+
+def procFundResults(df: pd.DataFrame):
+    df['dayInTotalReturn'] = df.apply(onProcDayInTotalReturn, axis=1)
 
 
 def findFundManagerResult(manager, name):
@@ -265,3 +302,81 @@ def procManagersWorkDays(dfManagers: pd.DataFrame):
     dfNew['workdays0'] = dfNew.apply(onProcWorkDays0, axis=1)
 
     return dfNew
+
+
+def showCNFundsType2(dfFunds: pd.DataFrame, isStaticImg: bool):
+    """分别根据数量和规模来显示饼图"""
+
+    titles = ['按基金数量统计', '按基金规模统计']
+
+    fig = make_subplots(rows=1, cols=2, subplot_titles=titles, specs=[
+                        [{'type': 'domain'}, {'type': 'domain'}]])
+
+    df0 = dfFunds.groupby('type2').size(
+    ).sort_values().reset_index(name='Count')
+    df1 = dfFunds.groupby('type2').agg({'size0': np.sum}).reset_index()
+
+    fig.add_trace(go.Pie(labels=df0['type2'],
+                         values=df0['Count'], name="按基金数量统计"), row=1, col=1)
+    fig.add_trace(go.Pie(labels=df1['type2'],
+                         values=df1['size0'], name="按基金规模统计"), row=1, col=2)
+
+    if isStaticImg:
+        fig.show(renderer="png")
+    else:
+        fig.show()
+
+
+def showInvalidCNFundsType2(dfFunds: pd.DataFrame):
+    """筛选出type2数据不合理的记录"""
+
+    return dfFunds.loc[(dfFunds['type2'] != '混合型') & (dfFunds['type2'] != '债券型') & (dfFunds['type2'] != '股票型') & (dfFunds['type2'] != '货币型') & (dfFunds['type2'] != 'ETF联接基金') & (dfFunds['type2'] != 'FOF') & (dfFunds['type2'] != '其他')]
+
+
+def showCNFundResultsScatter(dfFundResults: pd.DataFrame, isStaticImg: bool):
+    """显示基金的回报、年限、规模、类型散点图"""
+
+    fig = go.Figure()
+    arrType2 = ['混合型', '债券型', '股票型', '货币型', 'ETF联接基金', 'FOF', '其他']
+
+    for t2 in arrType2:
+        cdf = dfFundResults.loc[dfFundResults['type2'] == t2]
+
+        # fig.add_trace(go.Scatter(x=dfFundResults['liveyears'], y=dfFundResults['totalReturn'],
+        #                          mode='markers',
+        #                          name=t2, marker=dict(size=dfFundResults['size1'])))
+        fig.add_trace(go.Scatter(x=cdf['durationYear'], y=cdf['totalReturn'],
+                                 mode='markers',
+                                 name=t2, marker=dict(size=dfFundResults['size1'])))
+
+    if isStaticImg:
+        fig.show(renderer="png")
+    else:
+        fig.show()
+
+
+def showCNFundResultsScatterEx(dfFundResults: pd.DataFrame, x: str, y: str, s: str, isStaticImg: bool):
+    """显示基金散点图"""
+
+    fig = go.Figure()
+    arrType2 = ['混合型', '债券型', '股票型', '货币型', 'ETF联接基金', 'FOF', '其他']
+
+    for t2 in arrType2:
+        cdf = dfFundResults.loc[dfFundResults['type2'] == t2]
+
+        # fig.add_trace(go.Scatter(x=dfFundResults['liveyears'], y=dfFundResults['totalReturn'],
+        #                          mode='markers',
+        #                          name=t2, marker=dict(size=dfFundResults['size1'])))
+        if s != '':
+            fig.add_trace(go.Scatter(x=cdf[x], y=cdf[y],
+                                     mode='markers',
+                                     name=t2, marker=dict(size=dfFundResults[s])))
+        else:
+            fig.add_trace(go.Scatter(x=cdf[x], y=cdf[y],
+                                     mode='markers',
+                                     name=t2))
+
+    if isStaticImg:
+        fig.show(renderer="png")
+    else:
+        fig.show()
