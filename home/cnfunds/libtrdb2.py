@@ -119,7 +119,8 @@ def simTrading(servAddr: str, token: str, assets: list, baselines: list, tsStart
         for v in pnlt.values:
             fv['date'].append(datetime.fromtimestamp(
                 v.ts).strftime('%Y-%m-%d'))
-            fv['close'].append(v.perValue)
+            fv['close'].append(v.value)
+            # fv['close'].append(v.perValue)
 
     return pd.DataFrame(fv)
 
