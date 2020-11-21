@@ -73,3 +73,59 @@ def showCNFunds(cfg, codes, rows: int, cols: int):
             i += 1
 
     fig.show(renderer="png")
+
+
+def str2Asset(asset: str) -> trading2_pb2.Asset:
+    arr = asset.split('.', -1)
+    if len(arr) != 2:
+        raise ValueError
+
+    return trading2_pb2.Asset(
+        market=arr[0],
+        code=arr[1],
+    )
+
+
+def simTrading(servAddr: str, token: str, assets: list, baselines: list, tsStart: int, tsEnd: int) -> pd.DataFrame:
+    channel = grpc.insecure_channel(servAddr)
+    stub = tradingdb2_pb2_grpc.TradingDB2Stub(channel)
+
+    lstAssets = []
+    for a in assets:
+        lstAssets.append(str2Asset(a))
+
+    lstBaselines = []
+    for b in baselines:
+        lstBaselines.append(str2Asset(b))
+
+    params = trading2_pb2.SimTradingParams(
+        assets=lstAssets,
+        baselines=lstBaselines,
+        startTs=tsStart,
+        endTs=tsEnd,
+    )
+
+    response = stub.simTrading(tradingdb2_pb2.RequestSimTrading(
+        basicRequest=trading2_pb2.BasicRequestData(
+            token=token,
+        ),
+        params=params,
+    ))
+
+    fv = {'date': [], 'close': []}
+    if len(response.pnl) > 0:
+        pnl = response.pnl[0]
+        pnlt = pnl.total
+        for v in pnlt.values:
+            fv['date'].append(datetime.fromtimestamp(
+                v.ts).strftime('%Y-%m-%d'))
+            fv['close'].append(v.perValue)
+
+    return pd.DataFrame(fv)
+
+
+def showSimTradingPNL(cfg, name: str, codes: list):
+    dffund = simTrading(
+        cfg['servaddr'], cfg['token'], codes, [], 0, 0)
+    fig = px.line(dffund, x="date", y="close", title=name)
+    fig.show()
