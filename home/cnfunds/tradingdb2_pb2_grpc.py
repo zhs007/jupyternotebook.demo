@@ -5,8 +5,8 @@ import grpc
 import tradingdb2_pb2 as tradingdb2__pb2
 
 
-class TradingDB2ServiceStub(object):
-    """TradingDB2Service - TradingDB2 service
+class TradingDB2Stub(object):
+    """TradingDB2 - TradingDB2 service
     """
 
     def __init__(self, channel):
@@ -16,34 +16,39 @@ class TradingDB2ServiceStub(object):
             channel: A grpc.Channel.
         """
         self.updCandles = channel.stream_unary(
-                '/tradingdb2pb.TradingDB2Service/updCandles',
+                '/tradingpb.TradingDB2/updCandles',
                 request_serializer=tradingdb2__pb2.RequestUpdCandles.SerializeToString,
                 response_deserializer=tradingdb2__pb2.ReplyUpdCandles.FromString,
                 )
         self.getCandles = channel.unary_stream(
-                '/tradingdb2pb.TradingDB2Service/getCandles',
+                '/tradingpb.TradingDB2/getCandles',
                 request_serializer=tradingdb2__pb2.RequestGetCandles.SerializeToString,
                 response_deserializer=tradingdb2__pb2.ReplyGetCandles.FromString,
                 )
         self.updSymbol = channel.unary_unary(
-                '/tradingdb2pb.TradingDB2Service/updSymbol',
+                '/tradingpb.TradingDB2/updSymbol',
                 request_serializer=tradingdb2__pb2.RequestUpdSymbol.SerializeToString,
                 response_deserializer=tradingdb2__pb2.ReplyUpdSymbol.FromString,
                 )
         self.getSymbol = channel.unary_unary(
-                '/tradingdb2pb.TradingDB2Service/getSymbol',
+                '/tradingpb.TradingDB2/getSymbol',
                 request_serializer=tradingdb2__pb2.RequestGetSymbol.SerializeToString,
                 response_deserializer=tradingdb2__pb2.ReplyGetSymbol.FromString,
                 )
         self.getSymbols = channel.unary_stream(
-                '/tradingdb2pb.TradingDB2Service/getSymbols',
+                '/tradingpb.TradingDB2/getSymbols',
                 request_serializer=tradingdb2__pb2.RequestGetSymbols.SerializeToString,
                 response_deserializer=tradingdb2__pb2.ReplyGetSymbol.FromString,
                 )
+        self.simTrading = channel.unary_unary(
+                '/tradingpb.TradingDB2/simTrading',
+                request_serializer=tradingdb2__pb2.RequestSimTrading.SerializeToString,
+                response_deserializer=tradingdb2__pb2.ReplySimTrading.FromString,
+                )
 
 
-class TradingDB2ServiceServicer(object):
-    """TradingDB2Service - TradingDB2 service
+class TradingDB2Servicer(object):
+    """TradingDB2 - TradingDB2 service
     """
 
     def updCandles(self, request_iterator, context):
@@ -81,8 +86,15 @@ class TradingDB2ServiceServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def simTrading(self, request, context):
+        """simTrading - simulation trading
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
 
-def add_TradingDB2ServiceServicer_to_server(servicer, server):
+
+def add_TradingDB2Servicer_to_server(servicer, server):
     rpc_method_handlers = {
             'updCandles': grpc.stream_unary_rpc_method_handler(
                     servicer.updCandles,
@@ -109,15 +121,20 @@ def add_TradingDB2ServiceServicer_to_server(servicer, server):
                     request_deserializer=tradingdb2__pb2.RequestGetSymbols.FromString,
                     response_serializer=tradingdb2__pb2.ReplyGetSymbol.SerializeToString,
             ),
+            'simTrading': grpc.unary_unary_rpc_method_handler(
+                    servicer.simTrading,
+                    request_deserializer=tradingdb2__pb2.RequestSimTrading.FromString,
+                    response_serializer=tradingdb2__pb2.ReplySimTrading.SerializeToString,
+            ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
-            'tradingdb2pb.TradingDB2Service', rpc_method_handlers)
+            'tradingpb.TradingDB2', rpc_method_handlers)
     server.add_generic_rpc_handlers((generic_handler,))
 
 
  # This class is part of an EXPERIMENTAL API.
-class TradingDB2Service(object):
-    """TradingDB2Service - TradingDB2 service
+class TradingDB2(object):
+    """TradingDB2 - TradingDB2 service
     """
 
     @staticmethod
@@ -131,7 +148,7 @@ class TradingDB2Service(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.stream_unary(request_iterator, target, '/tradingdb2pb.TradingDB2Service/updCandles',
+        return grpc.experimental.stream_unary(request_iterator, target, '/tradingpb.TradingDB2/updCandles',
             tradingdb2__pb2.RequestUpdCandles.SerializeToString,
             tradingdb2__pb2.ReplyUpdCandles.FromString,
             options, channel_credentials,
@@ -148,7 +165,7 @@ class TradingDB2Service(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_stream(request, target, '/tradingdb2pb.TradingDB2Service/getCandles',
+        return grpc.experimental.unary_stream(request, target, '/tradingpb.TradingDB2/getCandles',
             tradingdb2__pb2.RequestGetCandles.SerializeToString,
             tradingdb2__pb2.ReplyGetCandles.FromString,
             options, channel_credentials,
@@ -165,7 +182,7 @@ class TradingDB2Service(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/tradingdb2pb.TradingDB2Service/updSymbol',
+        return grpc.experimental.unary_unary(request, target, '/tradingpb.TradingDB2/updSymbol',
             tradingdb2__pb2.RequestUpdSymbol.SerializeToString,
             tradingdb2__pb2.ReplyUpdSymbol.FromString,
             options, channel_credentials,
@@ -182,7 +199,7 @@ class TradingDB2Service(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/tradingdb2pb.TradingDB2Service/getSymbol',
+        return grpc.experimental.unary_unary(request, target, '/tradingpb.TradingDB2/getSymbol',
             tradingdb2__pb2.RequestGetSymbol.SerializeToString,
             tradingdb2__pb2.ReplyGetSymbol.FromString,
             options, channel_credentials,
@@ -199,8 +216,25 @@ class TradingDB2Service(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_stream(request, target, '/tradingdb2pb.TradingDB2Service/getSymbols',
+        return grpc.experimental.unary_stream(request, target, '/tradingpb.TradingDB2/getSymbols',
             tradingdb2__pb2.RequestGetSymbols.SerializeToString,
             tradingdb2__pb2.ReplyGetSymbol.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def simTrading(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/tradingpb.TradingDB2/simTrading',
+            tradingdb2__pb2.RequestSimTrading.SerializeToString,
+            tradingdb2__pb2.ReplySimTrading.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)

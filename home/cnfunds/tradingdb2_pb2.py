@@ -11,114 +11,116 @@ from google.protobuf import symbol_database as _symbol_database
 _sym_db = _symbol_database.Default()
 
 
+import trading2_pb2 as trading2__pb2
 
 
 DESCRIPTOR = _descriptor.FileDescriptor(
   name='tradingdb2.proto',
-  package='tradingdb2pb',
+  package='tradingpb',
   syntax='proto3',
-  serialized_options=b'Z)github.com/zhs007/tradingdb2/tradingdb2pb',
+  serialized_options=b'Z&github.com/zhs007/tradingdb2/tradingpb',
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n\x10tradingdb2.proto\x12\x0ctradingdb2pb\"\xe3\x01\n\x06\x43\x61ndle\x12\n\n\x02ts\x18\x01 \x01(\x03\x12\x0c\n\x04open\x18\x02 \x01(\x03\x12\r\n\x05\x63lose\x18\x03 \x01(\x03\x12\x0c\n\x04high\x18\x04 \x01(\x03\x12\x0b\n\x03low\x18\x05 \x01(\x03\x12\x0e\n\x06volume\x18\x06 \x01(\x03\x12\x14\n\x0copenInterest\x18\x07 \x01(\x03\x12\x0e\n\x06trades\x18\x08 \x01(\x03\x12\x0c\n\x04vwap\x18\t \x01(\x01\x12\x10\n\x08lastSize\x18\n \x01(\x03\x12\x10\n\x08turnover\x18\x0b \x01(\x03\x12\x14\n\x0chomeNotional\x18\x0c \x01(\x01\x12\x17\n\x0f\x66oreignNotional\x18\r \x01(\x01\"]\n\x07\x43\x61ndles\x12\x0e\n\x06market\x18\x01 \x01(\t\x12\x0e\n\x06symbol\x18\x02 \x01(\t\x12\x0b\n\x03tag\x18\x03 \x01(\t\x12%\n\x07\x63\x61ndles\x18\x04 \x03(\x0b\x32\x14.tradingdb2pb.Candle\"&\n\x08\x46undSize\x12\x0c\n\x04size\x18\x01 \x01(\x02\x12\x0c\n\x04time\x18\x02 \x01(\x03\"\x93\x01\n\x0b\x46undManager\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x11\n\tstartTime\x18\x02 \x01(\x03\x12\x0f\n\x07\x65ndTime\x18\x03 \x01(\x03\x12\x11\n\tbirthYear\x18\x04 \x01(\x03\x12\x0b\n\x03sex\x18\x05 \x01(\x08\x12\x11\n\teducation\x18\x06 \x01(\t\x12\x0f\n\x07\x63ountry\x18\x07 \x01(\t\x12\x0e\n\x06resume\x18\x08 \x01(\t\"\xb2\x01\n\nFundResult\x12\x13\n\x0bmaxDrawdown\x18\x01 \x01(\x02\x12\x0e\n\x06sharpe\x18\x02 \x01(\x02\x12\x19\n\x11\x61nnualizedReturns\x18\x03 \x01(\x02\x12\x1c\n\x14\x61nnualizedVolatility\x18\x04 \x01(\x02\x12\x14\n\x0ctotalReturns\x18\x05 \x01(\x02\x12\x11\n\tstartTime\x18\x06 \x01(\x03\x12\x0f\n\x07\x65ndTime\x18\x07 \x01(\x03\x12\x0c\n\x04name\x18\x08 \x01(\t\"\xd3\x01\n\x04\x46und\x12\x0c\n\x04\x63ode\x18\x01 \x01(\t\x12\x0c\n\x04name\x18\x02 \x01(\t\x12\x0c\n\x04tags\x18\x03 \x03(\t\x12\x12\n\ncreateTime\x18\x04 \x01(\x03\x12$\n\x04size\x18\x05 \x03(\x0b\x32\x16.tradingdb2pb.FundSize\x12\x0f\n\x07\x63ompany\x18\x06 \x01(\t\x12+\n\x08managers\x18\x07 \x03(\x0b\x32\x19.tradingdb2pb.FundManager\x12)\n\x07results\x18\x08 \x03(\x0b\x32\x18.tradingdb2pb.FundResult\"N\n\nSymbolInfo\x12\x0e\n\x06market\x18\x01 \x01(\t\x12\x0e\n\x06symbol\x18\x02 \x01(\t\x12 \n\x04\x66und\x18\x03 \x01(\x0b\x32\x12.tradingdb2pb.Fund\"J\n\x11RequestUpdCandles\x12\r\n\x05token\x18\x01 \x01(\t\x12&\n\x07\x63\x61ndles\x18\x02 \x01(\x0b\x32\x15.tradingdb2pb.Candles\"#\n\x0fReplyUpdCandles\x12\x10\n\x08lengthOK\x18\x01 \x01(\x05\"\x81\x01\n\x11RequestGetCandles\x12\r\n\x05token\x18\x01 \x01(\t\x12\x0e\n\x06market\x18\x02 \x01(\t\x12\x0e\n\x06symbol\x18\x03 \x01(\t\x12\x0f\n\x03tag\x18\x04 \x01(\tB\x02\x18\x01\x12\x0f\n\x07tsStart\x18\x05 \x01(\x03\x12\r\n\x05tsEnd\x18\x06 \x01(\x03\x12\x0c\n\x04tags\x18\x07 \x03(\t\"9\n\x0fReplyGetCandles\x12&\n\x07\x63\x61ndles\x18\x01 \x01(\x0b\x32\x15.tradingdb2pb.Candles\"K\n\x10RequestUpdSymbol\x12\r\n\x05token\x18\x01 \x01(\t\x12(\n\x06symbol\x18\x02 \x01(\x0b\x32\x18.tradingdb2pb.SymbolInfo\"\x1e\n\x0eReplyUpdSymbol\x12\x0c\n\x04isOK\x18\x01 \x01(\x08\"A\n\x10RequestGetSymbol\x12\r\n\x05token\x18\x01 \x01(\t\x12\x0e\n\x06market\x18\x02 \x01(\t\x12\x0e\n\x06symbol\x18\x03 \x01(\t\":\n\x0eReplyGetSymbol\x12(\n\x06symbol\x18\x01 \x01(\x0b\x32\x18.tradingdb2pb.SymbolInfo\"C\n\x11RequestGetSymbols\x12\r\n\x05token\x18\x01 \x01(\t\x12\x0e\n\x06market\x18\x02 \x01(\t\x12\x0f\n\x07symbols\x18\x03 \x03(\t2\xa2\x03\n\x11TradingDB2Service\x12P\n\nupdCandles\x12\x1f.tradingdb2pb.RequestUpdCandles\x1a\x1d.tradingdb2pb.ReplyUpdCandles\"\x00(\x01\x12P\n\ngetCandles\x12\x1f.tradingdb2pb.RequestGetCandles\x1a\x1d.tradingdb2pb.ReplyGetCandles\"\x00\x30\x01\x12K\n\tupdSymbol\x12\x1e.tradingdb2pb.RequestUpdSymbol\x1a\x1c.tradingdb2pb.ReplyUpdSymbol\"\x00\x12K\n\tgetSymbol\x12\x1e.tradingdb2pb.RequestGetSymbol\x1a\x1c.tradingdb2pb.ReplyGetSymbol\"\x00\x12O\n\ngetSymbols\x12\x1f.tradingdb2pb.RequestGetSymbols\x1a\x1c.tradingdb2pb.ReplyGetSymbol\"\x00\x30\x01\x42+Z)github.com/zhs007/tradingdb2/tradingdb2pbb\x06proto3'
-)
+  serialized_pb=b'\n\x10tradingdb2.proto\x12\ttradingpb\x1a\x0etrading2.proto\"\xe3\x01\n\x06\x43\x61ndle\x12\n\n\x02ts\x18\x01 \x01(\x03\x12\x0c\n\x04open\x18\x02 \x01(\x03\x12\r\n\x05\x63lose\x18\x03 \x01(\x03\x12\x0c\n\x04high\x18\x04 \x01(\x03\x12\x0b\n\x03low\x18\x05 \x01(\x03\x12\x0e\n\x06volume\x18\x06 \x01(\x03\x12\x14\n\x0copenInterest\x18\x07 \x01(\x03\x12\x0e\n\x06trades\x18\x08 \x01(\x03\x12\x0c\n\x04vwap\x18\t \x01(\x01\x12\x10\n\x08lastSize\x18\n \x01(\x03\x12\x10\n\x08turnover\x18\x0b \x01(\x03\x12\x14\n\x0chomeNotional\x18\x0c \x01(\x01\x12\x17\n\x0f\x66oreignNotional\x18\r \x01(\x01\"Z\n\x07\x43\x61ndles\x12\x0e\n\x06market\x18\x01 \x01(\t\x12\x0e\n\x06symbol\x18\x02 \x01(\t\x12\x0b\n\x03tag\x18\x03 \x01(\t\x12\"\n\x07\x63\x61ndles\x18\x04 \x03(\x0b\x32\x11.tradingpb.Candle\"&\n\x08\x46undSize\x12\x0c\n\x04size\x18\x01 \x01(\x02\x12\x0c\n\x04time\x18\x02 \x01(\x03\"\xbb\x01\n\x0b\x46undManager\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x11\n\tstartTime\x18\x02 \x01(\x03\x12\x0f\n\x07\x65ndTime\x18\x03 \x01(\x03\x12\x11\n\tbirthYear\x18\x04 \x01(\x03\x12\x0b\n\x03sex\x18\x05 \x01(\x08\x12\x11\n\teducation\x18\x06 \x01(\t\x12\x0f\n\x07\x63ountry\x18\x07 \x01(\t\x12\x0e\n\x06resume\x18\x08 \x01(\t\x12&\n\x07results\x18\t \x03(\x0b\x32\x15.tradingpb.FundResult\"\xb2\x01\n\nFundResult\x12\x13\n\x0bmaxDrawdown\x18\x01 \x01(\x02\x12\x0e\n\x06sharpe\x18\x02 \x01(\x02\x12\x19\n\x11\x61nnualizedReturns\x18\x03 \x01(\x02\x12\x1c\n\x14\x61nnualizedVolatility\x18\x04 \x01(\x02\x12\x14\n\x0ctotalReturns\x18\x05 \x01(\x02\x12\x11\n\tstartTime\x18\x06 \x01(\x03\x12\x0f\n\x07\x65ndTime\x18\x07 \x01(\x03\x12\x0c\n\x04name\x18\x08 \x01(\t\"\xca\x01\n\x04\x46und\x12\x0c\n\x04\x63ode\x18\x01 \x01(\t\x12\x0c\n\x04name\x18\x02 \x01(\t\x12\x0c\n\x04tags\x18\x03 \x03(\t\x12\x12\n\ncreateTime\x18\x04 \x01(\x03\x12!\n\x04size\x18\x05 \x03(\x0b\x32\x13.tradingpb.FundSize\x12\x0f\n\x07\x63ompany\x18\x06 \x01(\t\x12(\n\x08managers\x18\x07 \x03(\x0b\x32\x16.tradingpb.FundManager\x12&\n\x07results\x18\x08 \x03(\x0b\x32\x15.tradingpb.FundResult\"K\n\nSymbolInfo\x12\x0e\n\x06market\x18\x01 \x01(\t\x12\x0e\n\x06symbol\x18\x02 \x01(\t\x12\x1d\n\x04\x66und\x18\x03 \x01(\x0b\x32\x0f.tradingpb.Fund\"~\n\x11RequestUpdCandles\x12\x11\n\x05token\x18\x01 \x01(\tB\x02\x18\x01\x12#\n\x07\x63\x61ndles\x18\x02 \x01(\x0b\x32\x12.tradingpb.Candles\x12\x31\n\x0c\x62\x61sicRequest\x18\x03 \x01(\x0b\x32\x1b.tradingpb.BasicRequestData\"#\n\x0fReplyUpdCandles\x12\x10\n\x08lengthOK\x18\x01 \x01(\x05\"\xb8\x01\n\x11RequestGetCandles\x12\x11\n\x05token\x18\x01 \x01(\tB\x02\x18\x01\x12\x0e\n\x06market\x18\x02 \x01(\t\x12\x0e\n\x06symbol\x18\x03 \x01(\t\x12\x0f\n\x03tag\x18\x04 \x01(\tB\x02\x18\x01\x12\x0f\n\x07tsStart\x18\x05 \x01(\x03\x12\r\n\x05tsEnd\x18\x06 \x01(\x03\x12\x0c\n\x04tags\x18\x07 \x03(\t\x12\x31\n\x0c\x62\x61sicRequest\x18\x08 \x01(\x0b\x32\x1b.tradingpb.BasicRequestData\"6\n\x0fReplyGetCandles\x12#\n\x07\x63\x61ndles\x18\x01 \x01(\x0b\x32\x12.tradingpb.Candles\"\x7f\n\x10RequestUpdSymbol\x12\x11\n\x05token\x18\x01 \x01(\tB\x02\x18\x01\x12%\n\x06symbol\x18\x02 \x01(\x0b\x32\x15.tradingpb.SymbolInfo\x12\x31\n\x0c\x62\x61sicRequest\x18\x03 \x01(\x0b\x32\x1b.tradingpb.BasicRequestData\"\x1e\n\x0eReplyUpdSymbol\x12\x0c\n\x04isOK\x18\x01 \x01(\x08\"x\n\x10RequestGetSymbol\x12\x11\n\x05token\x18\x01 \x01(\tB\x02\x18\x01\x12\x0e\n\x06market\x18\x02 \x01(\t\x12\x0e\n\x06symbol\x18\x03 \x01(\t\x12\x31\n\x0c\x62\x61sicRequest\x18\x04 \x01(\x0b\x32\x1b.tradingpb.BasicRequestData\"7\n\x0eReplyGetSymbol\x12%\n\x06symbol\x18\x01 \x01(\x0b\x32\x15.tradingpb.SymbolInfo\"z\n\x11RequestGetSymbols\x12\x11\n\x05token\x18\x01 \x01(\tB\x02\x18\x01\x12\x0e\n\x06market\x18\x02 \x01(\t\x12\x0f\n\x07symbols\x18\x03 \x03(\t\x12\x31\n\x0c\x62\x61sicRequest\x18\x04 \x01(\x0b\x32\x1b.tradingpb.BasicRequestData\"s\n\x11RequestSimTrading\x12\x31\n\x0c\x62\x61sicRequest\x18\x01 \x01(\x0b\x32\x1b.tradingpb.BasicRequestData\x12+\n\x06params\x18\x02 \x01(\x0b\x32\x1b.tradingpb.SimTradingParams\"2\n\x0fReplySimTrading\x12\x1f\n\x03pnl\x18\x01 \x03(\x0b\x32\x12.tradingpb.PNLData2\xc7\x03\n\nTradingDB2\x12J\n\nupdCandles\x12\x1c.tradingpb.RequestUpdCandles\x1a\x1a.tradingpb.ReplyUpdCandles\"\x00(\x01\x12J\n\ngetCandles\x12\x1c.tradingpb.RequestGetCandles\x1a\x1a.tradingpb.ReplyGetCandles\"\x00\x30\x01\x12\x45\n\tupdSymbol\x12\x1b.tradingpb.RequestUpdSymbol\x1a\x19.tradingpb.ReplyUpdSymbol\"\x00\x12\x45\n\tgetSymbol\x12\x1b.tradingpb.RequestGetSymbol\x1a\x19.tradingpb.ReplyGetSymbol\"\x00\x12I\n\ngetSymbols\x12\x1c.tradingpb.RequestGetSymbols\x1a\x19.tradingpb.ReplyGetSymbol\"\x00\x30\x01\x12H\n\nsimTrading\x12\x1c.tradingpb.RequestSimTrading\x1a\x1a.tradingpb.ReplySimTrading\"\x00\x42(Z&github.com/zhs007/tradingdb2/tradingpbb\x06proto3'
+  ,
+  dependencies=[trading2__pb2.DESCRIPTOR,])
 
 
 
 
 _CANDLE = _descriptor.Descriptor(
   name='Candle',
-  full_name='tradingdb2pb.Candle',
+  full_name='tradingpb.Candle',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   create_key=_descriptor._internal_create_key,
   fields=[
     _descriptor.FieldDescriptor(
-      name='ts', full_name='tradingdb2pb.Candle.ts', index=0,
+      name='ts', full_name='tradingpb.Candle.ts', index=0,
       number=1, type=3, cpp_type=2, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='open', full_name='tradingdb2pb.Candle.open', index=1,
+      name='open', full_name='tradingpb.Candle.open', index=1,
       number=2, type=3, cpp_type=2, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='close', full_name='tradingdb2pb.Candle.close', index=2,
+      name='close', full_name='tradingpb.Candle.close', index=2,
       number=3, type=3, cpp_type=2, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='high', full_name='tradingdb2pb.Candle.high', index=3,
+      name='high', full_name='tradingpb.Candle.high', index=3,
       number=4, type=3, cpp_type=2, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='low', full_name='tradingdb2pb.Candle.low', index=4,
+      name='low', full_name='tradingpb.Candle.low', index=4,
       number=5, type=3, cpp_type=2, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='volume', full_name='tradingdb2pb.Candle.volume', index=5,
+      name='volume', full_name='tradingpb.Candle.volume', index=5,
       number=6, type=3, cpp_type=2, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='openInterest', full_name='tradingdb2pb.Candle.openInterest', index=6,
+      name='openInterest', full_name='tradingpb.Candle.openInterest', index=6,
       number=7, type=3, cpp_type=2, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='trades', full_name='tradingdb2pb.Candle.trades', index=7,
+      name='trades', full_name='tradingpb.Candle.trades', index=7,
       number=8, type=3, cpp_type=2, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='vwap', full_name='tradingdb2pb.Candle.vwap', index=8,
+      name='vwap', full_name='tradingpb.Candle.vwap', index=8,
       number=9, type=1, cpp_type=5, label=1,
       has_default_value=False, default_value=float(0),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='lastSize', full_name='tradingdb2pb.Candle.lastSize', index=9,
+      name='lastSize', full_name='tradingpb.Candle.lastSize', index=9,
       number=10, type=3, cpp_type=2, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='turnover', full_name='tradingdb2pb.Candle.turnover', index=10,
+      name='turnover', full_name='tradingpb.Candle.turnover', index=10,
       number=11, type=3, cpp_type=2, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='homeNotional', full_name='tradingdb2pb.Candle.homeNotional', index=11,
+      name='homeNotional', full_name='tradingpb.Candle.homeNotional', index=11,
       number=12, type=1, cpp_type=5, label=1,
       has_default_value=False, default_value=float(0),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='foreignNotional', full_name='tradingdb2pb.Candle.foreignNotional', index=12,
+      name='foreignNotional', full_name='tradingpb.Candle.foreignNotional', index=12,
       number=13, type=1, cpp_type=5, label=1,
       has_default_value=False, default_value=float(0),
       message_type=None, enum_type=None, containing_type=None,
@@ -136,42 +138,42 @@ _CANDLE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=35,
-  serialized_end=262,
+  serialized_start=48,
+  serialized_end=275,
 )
 
 
 _CANDLES = _descriptor.Descriptor(
   name='Candles',
-  full_name='tradingdb2pb.Candles',
+  full_name='tradingpb.Candles',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   create_key=_descriptor._internal_create_key,
   fields=[
     _descriptor.FieldDescriptor(
-      name='market', full_name='tradingdb2pb.Candles.market', index=0,
+      name='market', full_name='tradingpb.Candles.market', index=0,
       number=1, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='symbol', full_name='tradingdb2pb.Candles.symbol', index=1,
+      name='symbol', full_name='tradingpb.Candles.symbol', index=1,
       number=2, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='tag', full_name='tradingdb2pb.Candles.tag', index=2,
+      name='tag', full_name='tradingpb.Candles.tag', index=2,
       number=3, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='candles', full_name='tradingdb2pb.Candles.candles', index=3,
+      name='candles', full_name='tradingpb.Candles.candles', index=3,
       number=4, type=11, cpp_type=10, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
@@ -189,28 +191,28 @@ _CANDLES = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=264,
-  serialized_end=357,
+  serialized_start=277,
+  serialized_end=367,
 )
 
 
 _FUNDSIZE = _descriptor.Descriptor(
   name='FundSize',
-  full_name='tradingdb2pb.FundSize',
+  full_name='tradingpb.FundSize',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   create_key=_descriptor._internal_create_key,
   fields=[
     _descriptor.FieldDescriptor(
-      name='size', full_name='tradingdb2pb.FundSize.size', index=0,
+      name='size', full_name='tradingpb.FundSize.size', index=0,
       number=1, type=2, cpp_type=6, label=1,
       has_default_value=False, default_value=float(0),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='time', full_name='tradingdb2pb.FundSize.time', index=1,
+      name='time', full_name='tradingpb.FundSize.time', index=1,
       number=2, type=3, cpp_type=2, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
@@ -228,72 +230,79 @@ _FUNDSIZE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=359,
-  serialized_end=397,
+  serialized_start=369,
+  serialized_end=407,
 )
 
 
 _FUNDMANAGER = _descriptor.Descriptor(
   name='FundManager',
-  full_name='tradingdb2pb.FundManager',
+  full_name='tradingpb.FundManager',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   create_key=_descriptor._internal_create_key,
   fields=[
     _descriptor.FieldDescriptor(
-      name='name', full_name='tradingdb2pb.FundManager.name', index=0,
+      name='name', full_name='tradingpb.FundManager.name', index=0,
       number=1, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='startTime', full_name='tradingdb2pb.FundManager.startTime', index=1,
+      name='startTime', full_name='tradingpb.FundManager.startTime', index=1,
       number=2, type=3, cpp_type=2, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='endTime', full_name='tradingdb2pb.FundManager.endTime', index=2,
+      name='endTime', full_name='tradingpb.FundManager.endTime', index=2,
       number=3, type=3, cpp_type=2, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='birthYear', full_name='tradingdb2pb.FundManager.birthYear', index=3,
+      name='birthYear', full_name='tradingpb.FundManager.birthYear', index=3,
       number=4, type=3, cpp_type=2, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='sex', full_name='tradingdb2pb.FundManager.sex', index=4,
+      name='sex', full_name='tradingpb.FundManager.sex', index=4,
       number=5, type=8, cpp_type=7, label=1,
       has_default_value=False, default_value=False,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='education', full_name='tradingdb2pb.FundManager.education', index=5,
+      name='education', full_name='tradingpb.FundManager.education', index=5,
       number=6, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='country', full_name='tradingdb2pb.FundManager.country', index=6,
+      name='country', full_name='tradingpb.FundManager.country', index=6,
       number=7, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='resume', full_name='tradingdb2pb.FundManager.resume', index=7,
+      name='resume', full_name='tradingpb.FundManager.resume', index=7,
       number=8, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='results', full_name='tradingpb.FundManager.results', index=8,
+      number=9, type=11, cpp_type=10, label=3,
+      has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
@@ -309,70 +318,70 @@ _FUNDMANAGER = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=400,
-  serialized_end=547,
+  serialized_start=410,
+  serialized_end=597,
 )
 
 
 _FUNDRESULT = _descriptor.Descriptor(
   name='FundResult',
-  full_name='tradingdb2pb.FundResult',
+  full_name='tradingpb.FundResult',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   create_key=_descriptor._internal_create_key,
   fields=[
     _descriptor.FieldDescriptor(
-      name='maxDrawdown', full_name='tradingdb2pb.FundResult.maxDrawdown', index=0,
+      name='maxDrawdown', full_name='tradingpb.FundResult.maxDrawdown', index=0,
       number=1, type=2, cpp_type=6, label=1,
       has_default_value=False, default_value=float(0),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='sharpe', full_name='tradingdb2pb.FundResult.sharpe', index=1,
+      name='sharpe', full_name='tradingpb.FundResult.sharpe', index=1,
       number=2, type=2, cpp_type=6, label=1,
       has_default_value=False, default_value=float(0),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='annualizedReturns', full_name='tradingdb2pb.FundResult.annualizedReturns', index=2,
+      name='annualizedReturns', full_name='tradingpb.FundResult.annualizedReturns', index=2,
       number=3, type=2, cpp_type=6, label=1,
       has_default_value=False, default_value=float(0),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='annualizedVolatility', full_name='tradingdb2pb.FundResult.annualizedVolatility', index=3,
+      name='annualizedVolatility', full_name='tradingpb.FundResult.annualizedVolatility', index=3,
       number=4, type=2, cpp_type=6, label=1,
       has_default_value=False, default_value=float(0),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='totalReturns', full_name='tradingdb2pb.FundResult.totalReturns', index=4,
+      name='totalReturns', full_name='tradingpb.FundResult.totalReturns', index=4,
       number=5, type=2, cpp_type=6, label=1,
       has_default_value=False, default_value=float(0),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='startTime', full_name='tradingdb2pb.FundResult.startTime', index=5,
+      name='startTime', full_name='tradingpb.FundResult.startTime', index=5,
       number=6, type=3, cpp_type=2, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='endTime', full_name='tradingdb2pb.FundResult.endTime', index=6,
+      name='endTime', full_name='tradingpb.FundResult.endTime', index=6,
       number=7, type=3, cpp_type=2, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='name', full_name='tradingdb2pb.FundResult.name', index=7,
+      name='name', full_name='tradingpb.FundResult.name', index=7,
       number=8, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
@@ -390,70 +399,70 @@ _FUNDRESULT = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=550,
-  serialized_end=728,
+  serialized_start=600,
+  serialized_end=778,
 )
 
 
 _FUND = _descriptor.Descriptor(
   name='Fund',
-  full_name='tradingdb2pb.Fund',
+  full_name='tradingpb.Fund',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   create_key=_descriptor._internal_create_key,
   fields=[
     _descriptor.FieldDescriptor(
-      name='code', full_name='tradingdb2pb.Fund.code', index=0,
+      name='code', full_name='tradingpb.Fund.code', index=0,
       number=1, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='name', full_name='tradingdb2pb.Fund.name', index=1,
+      name='name', full_name='tradingpb.Fund.name', index=1,
       number=2, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='tags', full_name='tradingdb2pb.Fund.tags', index=2,
+      name='tags', full_name='tradingpb.Fund.tags', index=2,
       number=3, type=9, cpp_type=9, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='createTime', full_name='tradingdb2pb.Fund.createTime', index=3,
+      name='createTime', full_name='tradingpb.Fund.createTime', index=3,
       number=4, type=3, cpp_type=2, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='size', full_name='tradingdb2pb.Fund.size', index=4,
+      name='size', full_name='tradingpb.Fund.size', index=4,
       number=5, type=11, cpp_type=10, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='company', full_name='tradingdb2pb.Fund.company', index=5,
+      name='company', full_name='tradingpb.Fund.company', index=5,
       number=6, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='managers', full_name='tradingdb2pb.Fund.managers', index=6,
+      name='managers', full_name='tradingpb.Fund.managers', index=6,
       number=7, type=11, cpp_type=10, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='results', full_name='tradingdb2pb.Fund.results', index=7,
+      name='results', full_name='tradingpb.Fund.results', index=7,
       number=8, type=11, cpp_type=10, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
@@ -471,35 +480,35 @@ _FUND = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=731,
-  serialized_end=942,
+  serialized_start=781,
+  serialized_end=983,
 )
 
 
 _SYMBOLINFO = _descriptor.Descriptor(
   name='SymbolInfo',
-  full_name='tradingdb2pb.SymbolInfo',
+  full_name='tradingpb.SymbolInfo',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   create_key=_descriptor._internal_create_key,
   fields=[
     _descriptor.FieldDescriptor(
-      name='market', full_name='tradingdb2pb.SymbolInfo.market', index=0,
+      name='market', full_name='tradingpb.SymbolInfo.market', index=0,
       number=1, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='symbol', full_name='tradingdb2pb.SymbolInfo.symbol', index=1,
+      name='symbol', full_name='tradingpb.SymbolInfo.symbol', index=1,
       number=2, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='fund', full_name='tradingdb2pb.SymbolInfo.fund', index=2,
+      name='fund', full_name='tradingpb.SymbolInfo.fund', index=2,
       number=3, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
@@ -517,29 +526,36 @@ _SYMBOLINFO = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=944,
-  serialized_end=1022,
+  serialized_start=985,
+  serialized_end=1060,
 )
 
 
 _REQUESTUPDCANDLES = _descriptor.Descriptor(
   name='RequestUpdCandles',
-  full_name='tradingdb2pb.RequestUpdCandles',
+  full_name='tradingpb.RequestUpdCandles',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   create_key=_descriptor._internal_create_key,
   fields=[
     _descriptor.FieldDescriptor(
-      name='token', full_name='tradingdb2pb.RequestUpdCandles.token', index=0,
+      name='token', full_name='tradingpb.RequestUpdCandles.token', index=0,
       number=1, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
+      serialized_options=b'\030\001', file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='candles', full_name='tradingpb.RequestUpdCandles.candles', index=1,
+      number=2, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='candles', full_name='tradingdb2pb.RequestUpdCandles.candles', index=1,
-      number=2, type=11, cpp_type=10, label=1,
+      name='basicRequest', full_name='tradingpb.RequestUpdCandles.basicRequest', index=2,
+      number=3, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
@@ -556,21 +572,21 @@ _REQUESTUPDCANDLES = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1024,
-  serialized_end=1098,
+  serialized_start=1062,
+  serialized_end=1188,
 )
 
 
 _REPLYUPDCANDLES = _descriptor.Descriptor(
   name='ReplyUpdCandles',
-  full_name='tradingdb2pb.ReplyUpdCandles',
+  full_name='tradingpb.ReplyUpdCandles',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   create_key=_descriptor._internal_create_key,
   fields=[
     _descriptor.FieldDescriptor(
-      name='lengthOK', full_name='tradingdb2pb.ReplyUpdCandles.lengthOK', index=0,
+      name='lengthOK', full_name='tradingpb.ReplyUpdCandles.lengthOK', index=0,
       number=1, type=5, cpp_type=1, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
@@ -588,65 +604,72 @@ _REPLYUPDCANDLES = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1100,
-  serialized_end=1135,
+  serialized_start=1190,
+  serialized_end=1225,
 )
 
 
 _REQUESTGETCANDLES = _descriptor.Descriptor(
   name='RequestGetCandles',
-  full_name='tradingdb2pb.RequestGetCandles',
+  full_name='tradingpb.RequestGetCandles',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   create_key=_descriptor._internal_create_key,
   fields=[
     _descriptor.FieldDescriptor(
-      name='token', full_name='tradingdb2pb.RequestGetCandles.token', index=0,
+      name='token', full_name='tradingpb.RequestGetCandles.token', index=0,
       number=1, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+      serialized_options=b'\030\001', file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='market', full_name='tradingdb2pb.RequestGetCandles.market', index=1,
+      name='market', full_name='tradingpb.RequestGetCandles.market', index=1,
       number=2, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='symbol', full_name='tradingdb2pb.RequestGetCandles.symbol', index=2,
+      name='symbol', full_name='tradingpb.RequestGetCandles.symbol', index=2,
       number=3, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='tag', full_name='tradingdb2pb.RequestGetCandles.tag', index=3,
+      name='tag', full_name='tradingpb.RequestGetCandles.tag', index=3,
       number=4, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=b'\030\001', file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='tsStart', full_name='tradingdb2pb.RequestGetCandles.tsStart', index=4,
+      name='tsStart', full_name='tradingpb.RequestGetCandles.tsStart', index=4,
       number=5, type=3, cpp_type=2, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='tsEnd', full_name='tradingdb2pb.RequestGetCandles.tsEnd', index=5,
+      name='tsEnd', full_name='tradingpb.RequestGetCandles.tsEnd', index=5,
       number=6, type=3, cpp_type=2, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='tags', full_name='tradingdb2pb.RequestGetCandles.tags', index=6,
+      name='tags', full_name='tradingpb.RequestGetCandles.tags', index=6,
       number=7, type=9, cpp_type=9, label=3,
       has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='basicRequest', full_name='tradingpb.RequestGetCandles.basicRequest', index=7,
+      number=8, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
@@ -662,21 +685,21 @@ _REQUESTGETCANDLES = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1138,
-  serialized_end=1267,
+  serialized_start=1228,
+  serialized_end=1412,
 )
 
 
 _REPLYGETCANDLES = _descriptor.Descriptor(
   name='ReplyGetCandles',
-  full_name='tradingdb2pb.ReplyGetCandles',
+  full_name='tradingpb.ReplyGetCandles',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   create_key=_descriptor._internal_create_key,
   fields=[
     _descriptor.FieldDescriptor(
-      name='candles', full_name='tradingdb2pb.ReplyGetCandles.candles', index=0,
+      name='candles', full_name='tradingpb.ReplyGetCandles.candles', index=0,
       number=1, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
@@ -694,29 +717,36 @@ _REPLYGETCANDLES = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1269,
-  serialized_end=1326,
+  serialized_start=1414,
+  serialized_end=1468,
 )
 
 
 _REQUESTUPDSYMBOL = _descriptor.Descriptor(
   name='RequestUpdSymbol',
-  full_name='tradingdb2pb.RequestUpdSymbol',
+  full_name='tradingpb.RequestUpdSymbol',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   create_key=_descriptor._internal_create_key,
   fields=[
     _descriptor.FieldDescriptor(
-      name='token', full_name='tradingdb2pb.RequestUpdSymbol.token', index=0,
+      name='token', full_name='tradingpb.RequestUpdSymbol.token', index=0,
       number=1, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
+      serialized_options=b'\030\001', file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='symbol', full_name='tradingpb.RequestUpdSymbol.symbol', index=1,
+      number=2, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='symbol', full_name='tradingdb2pb.RequestUpdSymbol.symbol', index=1,
-      number=2, type=11, cpp_type=10, label=1,
+      name='basicRequest', full_name='tradingpb.RequestUpdSymbol.basicRequest', index=2,
+      number=3, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
@@ -733,21 +763,21 @@ _REQUESTUPDSYMBOL = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1328,
-  serialized_end=1403,
+  serialized_start=1470,
+  serialized_end=1597,
 )
 
 
 _REPLYUPDSYMBOL = _descriptor.Descriptor(
   name='ReplyUpdSymbol',
-  full_name='tradingdb2pb.ReplyUpdSymbol',
+  full_name='tradingpb.ReplyUpdSymbol',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   create_key=_descriptor._internal_create_key,
   fields=[
     _descriptor.FieldDescriptor(
-      name='isOK', full_name='tradingdb2pb.ReplyUpdSymbol.isOK', index=0,
+      name='isOK', full_name='tradingpb.ReplyUpdSymbol.isOK', index=0,
       number=1, type=8, cpp_type=7, label=1,
       has_default_value=False, default_value=False,
       message_type=None, enum_type=None, containing_type=None,
@@ -765,37 +795,44 @@ _REPLYUPDSYMBOL = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1405,
-  serialized_end=1435,
+  serialized_start=1599,
+  serialized_end=1629,
 )
 
 
 _REQUESTGETSYMBOL = _descriptor.Descriptor(
   name='RequestGetSymbol',
-  full_name='tradingdb2pb.RequestGetSymbol',
+  full_name='tradingpb.RequestGetSymbol',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   create_key=_descriptor._internal_create_key,
   fields=[
     _descriptor.FieldDescriptor(
-      name='token', full_name='tradingdb2pb.RequestGetSymbol.token', index=0,
+      name='token', full_name='tradingpb.RequestGetSymbol.token', index=0,
       number=1, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+      serialized_options=b'\030\001', file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='market', full_name='tradingdb2pb.RequestGetSymbol.market', index=1,
+      name='market', full_name='tradingpb.RequestGetSymbol.market', index=1,
       number=2, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='symbol', full_name='tradingdb2pb.RequestGetSymbol.symbol', index=2,
+      name='symbol', full_name='tradingpb.RequestGetSymbol.symbol', index=2,
       number=3, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='basicRequest', full_name='tradingpb.RequestGetSymbol.basicRequest', index=3,
+      number=4, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
@@ -811,21 +848,21 @@ _REQUESTGETSYMBOL = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1437,
-  serialized_end=1502,
+  serialized_start=1631,
+  serialized_end=1751,
 )
 
 
 _REPLYGETSYMBOL = _descriptor.Descriptor(
   name='ReplyGetSymbol',
-  full_name='tradingdb2pb.ReplyGetSymbol',
+  full_name='tradingpb.ReplyGetSymbol',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   create_key=_descriptor._internal_create_key,
   fields=[
     _descriptor.FieldDescriptor(
-      name='symbol', full_name='tradingdb2pb.ReplyGetSymbol.symbol', index=0,
+      name='symbol', full_name='tradingpb.ReplyGetSymbol.symbol', index=0,
       number=1, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
@@ -843,36 +880,114 @@ _REPLYGETSYMBOL = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1504,
-  serialized_end=1562,
+  serialized_start=1753,
+  serialized_end=1808,
 )
 
 
 _REQUESTGETSYMBOLS = _descriptor.Descriptor(
   name='RequestGetSymbols',
-  full_name='tradingdb2pb.RequestGetSymbols',
+  full_name='tradingpb.RequestGetSymbols',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   create_key=_descriptor._internal_create_key,
   fields=[
     _descriptor.FieldDescriptor(
-      name='token', full_name='tradingdb2pb.RequestGetSymbols.token', index=0,
+      name='token', full_name='tradingpb.RequestGetSymbols.token', index=0,
       number=1, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+      serialized_options=b'\030\001', file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='market', full_name='tradingdb2pb.RequestGetSymbols.market', index=1,
+      name='market', full_name='tradingpb.RequestGetSymbols.market', index=1,
       number=2, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='symbols', full_name='tradingdb2pb.RequestGetSymbols.symbols', index=2,
+      name='symbols', full_name='tradingpb.RequestGetSymbols.symbols', index=2,
       number=3, type=9, cpp_type=9, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='basicRequest', full_name='tradingpb.RequestGetSymbols.basicRequest', index=3,
+      number=4, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=1810,
+  serialized_end=1932,
+)
+
+
+_REQUESTSIMTRADING = _descriptor.Descriptor(
+  name='RequestSimTrading',
+  full_name='tradingpb.RequestSimTrading',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='basicRequest', full_name='tradingpb.RequestSimTrading.basicRequest', index=0,
+      number=1, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='params', full_name='tradingpb.RequestSimTrading.params', index=1,
+      number=2, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=1934,
+  serialized_end=2049,
+)
+
+
+_REPLYSIMTRADING = _descriptor.Descriptor(
+  name='ReplySimTrading',
+  full_name='tradingpb.ReplySimTrading',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='pnl', full_name='tradingpb.ReplySimTrading.pnl', index=0,
+      number=1, type=11, cpp_type=10, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
@@ -889,19 +1004,28 @@ _REQUESTGETSYMBOLS = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1564,
-  serialized_end=1631,
+  serialized_start=2051,
+  serialized_end=2101,
 )
 
 _CANDLES.fields_by_name['candles'].message_type = _CANDLE
+_FUNDMANAGER.fields_by_name['results'].message_type = _FUNDRESULT
 _FUND.fields_by_name['size'].message_type = _FUNDSIZE
 _FUND.fields_by_name['managers'].message_type = _FUNDMANAGER
 _FUND.fields_by_name['results'].message_type = _FUNDRESULT
 _SYMBOLINFO.fields_by_name['fund'].message_type = _FUND
 _REQUESTUPDCANDLES.fields_by_name['candles'].message_type = _CANDLES
+_REQUESTUPDCANDLES.fields_by_name['basicRequest'].message_type = trading2__pb2._BASICREQUESTDATA
+_REQUESTGETCANDLES.fields_by_name['basicRequest'].message_type = trading2__pb2._BASICREQUESTDATA
 _REPLYGETCANDLES.fields_by_name['candles'].message_type = _CANDLES
 _REQUESTUPDSYMBOL.fields_by_name['symbol'].message_type = _SYMBOLINFO
+_REQUESTUPDSYMBOL.fields_by_name['basicRequest'].message_type = trading2__pb2._BASICREQUESTDATA
+_REQUESTGETSYMBOL.fields_by_name['basicRequest'].message_type = trading2__pb2._BASICREQUESTDATA
 _REPLYGETSYMBOL.fields_by_name['symbol'].message_type = _SYMBOLINFO
+_REQUESTGETSYMBOLS.fields_by_name['basicRequest'].message_type = trading2__pb2._BASICREQUESTDATA
+_REQUESTSIMTRADING.fields_by_name['basicRequest'].message_type = trading2__pb2._BASICREQUESTDATA
+_REQUESTSIMTRADING.fields_by_name['params'].message_type = trading2__pb2._SIMTRADINGPARAMS
+_REPLYSIMTRADING.fields_by_name['pnl'].message_type = trading2__pb2._PNLDATA
 DESCRIPTOR.message_types_by_name['Candle'] = _CANDLE
 DESCRIPTOR.message_types_by_name['Candles'] = _CANDLES
 DESCRIPTOR.message_types_by_name['FundSize'] = _FUNDSIZE
@@ -918,137 +1042,158 @@ DESCRIPTOR.message_types_by_name['ReplyUpdSymbol'] = _REPLYUPDSYMBOL
 DESCRIPTOR.message_types_by_name['RequestGetSymbol'] = _REQUESTGETSYMBOL
 DESCRIPTOR.message_types_by_name['ReplyGetSymbol'] = _REPLYGETSYMBOL
 DESCRIPTOR.message_types_by_name['RequestGetSymbols'] = _REQUESTGETSYMBOLS
+DESCRIPTOR.message_types_by_name['RequestSimTrading'] = _REQUESTSIMTRADING
+DESCRIPTOR.message_types_by_name['ReplySimTrading'] = _REPLYSIMTRADING
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
 Candle = _reflection.GeneratedProtocolMessageType('Candle', (_message.Message,), {
   'DESCRIPTOR' : _CANDLE,
   '__module__' : 'tradingdb2_pb2'
-  # @@protoc_insertion_point(class_scope:tradingdb2pb.Candle)
+  # @@protoc_insertion_point(class_scope:tradingpb.Candle)
   })
 _sym_db.RegisterMessage(Candle)
 
 Candles = _reflection.GeneratedProtocolMessageType('Candles', (_message.Message,), {
   'DESCRIPTOR' : _CANDLES,
   '__module__' : 'tradingdb2_pb2'
-  # @@protoc_insertion_point(class_scope:tradingdb2pb.Candles)
+  # @@protoc_insertion_point(class_scope:tradingpb.Candles)
   })
 _sym_db.RegisterMessage(Candles)
 
 FundSize = _reflection.GeneratedProtocolMessageType('FundSize', (_message.Message,), {
   'DESCRIPTOR' : _FUNDSIZE,
   '__module__' : 'tradingdb2_pb2'
-  # @@protoc_insertion_point(class_scope:tradingdb2pb.FundSize)
+  # @@protoc_insertion_point(class_scope:tradingpb.FundSize)
   })
 _sym_db.RegisterMessage(FundSize)
 
 FundManager = _reflection.GeneratedProtocolMessageType('FundManager', (_message.Message,), {
   'DESCRIPTOR' : _FUNDMANAGER,
   '__module__' : 'tradingdb2_pb2'
-  # @@protoc_insertion_point(class_scope:tradingdb2pb.FundManager)
+  # @@protoc_insertion_point(class_scope:tradingpb.FundManager)
   })
 _sym_db.RegisterMessage(FundManager)
 
 FundResult = _reflection.GeneratedProtocolMessageType('FundResult', (_message.Message,), {
   'DESCRIPTOR' : _FUNDRESULT,
   '__module__' : 'tradingdb2_pb2'
-  # @@protoc_insertion_point(class_scope:tradingdb2pb.FundResult)
+  # @@protoc_insertion_point(class_scope:tradingpb.FundResult)
   })
 _sym_db.RegisterMessage(FundResult)
 
 Fund = _reflection.GeneratedProtocolMessageType('Fund', (_message.Message,), {
   'DESCRIPTOR' : _FUND,
   '__module__' : 'tradingdb2_pb2'
-  # @@protoc_insertion_point(class_scope:tradingdb2pb.Fund)
+  # @@protoc_insertion_point(class_scope:tradingpb.Fund)
   })
 _sym_db.RegisterMessage(Fund)
 
 SymbolInfo = _reflection.GeneratedProtocolMessageType('SymbolInfo', (_message.Message,), {
   'DESCRIPTOR' : _SYMBOLINFO,
   '__module__' : 'tradingdb2_pb2'
-  # @@protoc_insertion_point(class_scope:tradingdb2pb.SymbolInfo)
+  # @@protoc_insertion_point(class_scope:tradingpb.SymbolInfo)
   })
 _sym_db.RegisterMessage(SymbolInfo)
 
 RequestUpdCandles = _reflection.GeneratedProtocolMessageType('RequestUpdCandles', (_message.Message,), {
   'DESCRIPTOR' : _REQUESTUPDCANDLES,
   '__module__' : 'tradingdb2_pb2'
-  # @@protoc_insertion_point(class_scope:tradingdb2pb.RequestUpdCandles)
+  # @@protoc_insertion_point(class_scope:tradingpb.RequestUpdCandles)
   })
 _sym_db.RegisterMessage(RequestUpdCandles)
 
 ReplyUpdCandles = _reflection.GeneratedProtocolMessageType('ReplyUpdCandles', (_message.Message,), {
   'DESCRIPTOR' : _REPLYUPDCANDLES,
   '__module__' : 'tradingdb2_pb2'
-  # @@protoc_insertion_point(class_scope:tradingdb2pb.ReplyUpdCandles)
+  # @@protoc_insertion_point(class_scope:tradingpb.ReplyUpdCandles)
   })
 _sym_db.RegisterMessage(ReplyUpdCandles)
 
 RequestGetCandles = _reflection.GeneratedProtocolMessageType('RequestGetCandles', (_message.Message,), {
   'DESCRIPTOR' : _REQUESTGETCANDLES,
   '__module__' : 'tradingdb2_pb2'
-  # @@protoc_insertion_point(class_scope:tradingdb2pb.RequestGetCandles)
+  # @@protoc_insertion_point(class_scope:tradingpb.RequestGetCandles)
   })
 _sym_db.RegisterMessage(RequestGetCandles)
 
 ReplyGetCandles = _reflection.GeneratedProtocolMessageType('ReplyGetCandles', (_message.Message,), {
   'DESCRIPTOR' : _REPLYGETCANDLES,
   '__module__' : 'tradingdb2_pb2'
-  # @@protoc_insertion_point(class_scope:tradingdb2pb.ReplyGetCandles)
+  # @@protoc_insertion_point(class_scope:tradingpb.ReplyGetCandles)
   })
 _sym_db.RegisterMessage(ReplyGetCandles)
 
 RequestUpdSymbol = _reflection.GeneratedProtocolMessageType('RequestUpdSymbol', (_message.Message,), {
   'DESCRIPTOR' : _REQUESTUPDSYMBOL,
   '__module__' : 'tradingdb2_pb2'
-  # @@protoc_insertion_point(class_scope:tradingdb2pb.RequestUpdSymbol)
+  # @@protoc_insertion_point(class_scope:tradingpb.RequestUpdSymbol)
   })
 _sym_db.RegisterMessage(RequestUpdSymbol)
 
 ReplyUpdSymbol = _reflection.GeneratedProtocolMessageType('ReplyUpdSymbol', (_message.Message,), {
   'DESCRIPTOR' : _REPLYUPDSYMBOL,
   '__module__' : 'tradingdb2_pb2'
-  # @@protoc_insertion_point(class_scope:tradingdb2pb.ReplyUpdSymbol)
+  # @@protoc_insertion_point(class_scope:tradingpb.ReplyUpdSymbol)
   })
 _sym_db.RegisterMessage(ReplyUpdSymbol)
 
 RequestGetSymbol = _reflection.GeneratedProtocolMessageType('RequestGetSymbol', (_message.Message,), {
   'DESCRIPTOR' : _REQUESTGETSYMBOL,
   '__module__' : 'tradingdb2_pb2'
-  # @@protoc_insertion_point(class_scope:tradingdb2pb.RequestGetSymbol)
+  # @@protoc_insertion_point(class_scope:tradingpb.RequestGetSymbol)
   })
 _sym_db.RegisterMessage(RequestGetSymbol)
 
 ReplyGetSymbol = _reflection.GeneratedProtocolMessageType('ReplyGetSymbol', (_message.Message,), {
   'DESCRIPTOR' : _REPLYGETSYMBOL,
   '__module__' : 'tradingdb2_pb2'
-  # @@protoc_insertion_point(class_scope:tradingdb2pb.ReplyGetSymbol)
+  # @@protoc_insertion_point(class_scope:tradingpb.ReplyGetSymbol)
   })
 _sym_db.RegisterMessage(ReplyGetSymbol)
 
 RequestGetSymbols = _reflection.GeneratedProtocolMessageType('RequestGetSymbols', (_message.Message,), {
   'DESCRIPTOR' : _REQUESTGETSYMBOLS,
   '__module__' : 'tradingdb2_pb2'
-  # @@protoc_insertion_point(class_scope:tradingdb2pb.RequestGetSymbols)
+  # @@protoc_insertion_point(class_scope:tradingpb.RequestGetSymbols)
   })
 _sym_db.RegisterMessage(RequestGetSymbols)
 
+RequestSimTrading = _reflection.GeneratedProtocolMessageType('RequestSimTrading', (_message.Message,), {
+  'DESCRIPTOR' : _REQUESTSIMTRADING,
+  '__module__' : 'tradingdb2_pb2'
+  # @@protoc_insertion_point(class_scope:tradingpb.RequestSimTrading)
+  })
+_sym_db.RegisterMessage(RequestSimTrading)
+
+ReplySimTrading = _reflection.GeneratedProtocolMessageType('ReplySimTrading', (_message.Message,), {
+  'DESCRIPTOR' : _REPLYSIMTRADING,
+  '__module__' : 'tradingdb2_pb2'
+  # @@protoc_insertion_point(class_scope:tradingpb.ReplySimTrading)
+  })
+_sym_db.RegisterMessage(ReplySimTrading)
+
 
 DESCRIPTOR._options = None
+_REQUESTUPDCANDLES.fields_by_name['token']._options = None
+_REQUESTGETCANDLES.fields_by_name['token']._options = None
 _REQUESTGETCANDLES.fields_by_name['tag']._options = None
+_REQUESTUPDSYMBOL.fields_by_name['token']._options = None
+_REQUESTGETSYMBOL.fields_by_name['token']._options = None
+_REQUESTGETSYMBOLS.fields_by_name['token']._options = None
 
-_TRADINGDB2SERVICE = _descriptor.ServiceDescriptor(
-  name='TradingDB2Service',
-  full_name='tradingdb2pb.TradingDB2Service',
+_TRADINGDB2 = _descriptor.ServiceDescriptor(
+  name='TradingDB2',
+  full_name='tradingpb.TradingDB2',
   file=DESCRIPTOR,
   index=0,
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_start=1634,
-  serialized_end=2052,
+  serialized_start=2104,
+  serialized_end=2559,
   methods=[
   _descriptor.MethodDescriptor(
     name='updCandles',
-    full_name='tradingdb2pb.TradingDB2Service.updCandles',
+    full_name='tradingpb.TradingDB2.updCandles',
     index=0,
     containing_service=None,
     input_type=_REQUESTUPDCANDLES,
@@ -1058,7 +1203,7 @@ _TRADINGDB2SERVICE = _descriptor.ServiceDescriptor(
   ),
   _descriptor.MethodDescriptor(
     name='getCandles',
-    full_name='tradingdb2pb.TradingDB2Service.getCandles',
+    full_name='tradingpb.TradingDB2.getCandles',
     index=1,
     containing_service=None,
     input_type=_REQUESTGETCANDLES,
@@ -1068,7 +1213,7 @@ _TRADINGDB2SERVICE = _descriptor.ServiceDescriptor(
   ),
   _descriptor.MethodDescriptor(
     name='updSymbol',
-    full_name='tradingdb2pb.TradingDB2Service.updSymbol',
+    full_name='tradingpb.TradingDB2.updSymbol',
     index=2,
     containing_service=None,
     input_type=_REQUESTUPDSYMBOL,
@@ -1078,7 +1223,7 @@ _TRADINGDB2SERVICE = _descriptor.ServiceDescriptor(
   ),
   _descriptor.MethodDescriptor(
     name='getSymbol',
-    full_name='tradingdb2pb.TradingDB2Service.getSymbol',
+    full_name='tradingpb.TradingDB2.getSymbol',
     index=3,
     containing_service=None,
     input_type=_REQUESTGETSYMBOL,
@@ -1088,7 +1233,7 @@ _TRADINGDB2SERVICE = _descriptor.ServiceDescriptor(
   ),
   _descriptor.MethodDescriptor(
     name='getSymbols',
-    full_name='tradingdb2pb.TradingDB2Service.getSymbols',
+    full_name='tradingpb.TradingDB2.getSymbols',
     index=4,
     containing_service=None,
     input_type=_REQUESTGETSYMBOLS,
@@ -1096,9 +1241,19 @@ _TRADINGDB2SERVICE = _descriptor.ServiceDescriptor(
     serialized_options=None,
     create_key=_descriptor._internal_create_key,
   ),
+  _descriptor.MethodDescriptor(
+    name='simTrading',
+    full_name='tradingpb.TradingDB2.simTrading',
+    index=5,
+    containing_service=None,
+    input_type=_REQUESTSIMTRADING,
+    output_type=_REPLYSIMTRADING,
+    serialized_options=None,
+    create_key=_descriptor._internal_create_key,
+  ),
 ])
-_sym_db.RegisterServiceDescriptor(_TRADINGDB2SERVICE)
+_sym_db.RegisterServiceDescriptor(_TRADINGDB2)
 
-DESCRIPTOR.services_by_name['TradingDB2Service'] = _TRADINGDB2SERVICE
+DESCRIPTOR.services_by_name['TradingDB2'] = _TRADINGDB2
 
 # @@protoc_insertion_point(module_scope)
