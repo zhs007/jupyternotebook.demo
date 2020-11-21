@@ -1,5 +1,6 @@
 import pandas as pd
 import grpc
+import trading2_pb2
 import tradingdb2_pb2
 import tradingdb2_pb2_grpc
 import yaml
@@ -20,14 +21,17 @@ def loadConfig(fn: str):
 
 def getFundValues(servAddr: str, token: str, market: str, symbol: str, tsStart: int, tsEnd: int) -> pd.DataFrame:
     channel = grpc.insecure_channel(servAddr)
-    stub = tradingdb2_pb2_grpc.TradingDB2ServiceStub(channel)
+    stub = tradingdb2_pb2_grpc.TradingDB2Stub(channel)
 
     response = stub.getCandles(tradingdb2_pb2.RequestGetCandles(
-        token=token,
+        # token=token,
         market=market,
         symbol=symbol,
         tsStart=tsStart,
-        tsEnd=tsEnd
+        tsEnd=tsEnd,
+        basicRequest=trading2_pb2.BasicRequestData(
+            token=token,
+        ),
     ))
 
     fv = {'date': [], 'close': []}
