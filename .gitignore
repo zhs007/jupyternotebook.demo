@@ -131,5 +131,7 @@ dmypy.json
 .config
 .local
 .ipython
+.pki
+.bash_history
 
 trdb2.yaml
