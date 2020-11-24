@@ -119,7 +119,7 @@ def simTrading(servAddr: str, token: str, assets: list, baselines: list, tsStart
         for v in pnlt.values:
             fv['date'].append(datetime.fromtimestamp(
                 v.ts).strftime('%Y-%m-%d'))
-            fv['close'].append(v.value)
+            fv['close'].append(v.perValue)
             # fv['close'].append(v.perValue)
 
     return pd.DataFrame(fv)
@@ -128,5 +128,62 @@ def simTrading(servAddr: str, token: str, assets: list, baselines: list, tsStart
 def showSimTradingPNL(cfg, name: str, codes: list):
     dffund = simTrading(
         cfg['servaddr'], cfg['token'], codes, [], 0, 0)
+    fig = px.line(dffund, x="date", y="close", title=name)
+    fig.show()
+
+
+def simTradingAIP(servAddr: str, token: str, assets: list, baselines: list, tsStart: int, tsEnd: int, tt: str, val: int) -> pd.DataFrame:
+    channel = grpc.insecure_channel(servAddr)
+    stub = tradingdb2_pb2_grpc.TradingDB2Stub(channel)
+
+    lstAssets = []
+    for a in assets:
+        lstAssets.append(str2Asset(a))
+
+    lstBaselines = []
+    for b in baselines:
+        lstBaselines.append(str2Asset(b))
+
+    buy0 = trading2_pb2.CtrlCondition(
+        indicator=tt,
+        vals=[val],
+    )
+    s0 = trading2_pb2.Strategy(
+        name="aip",
+        asset=str2Asset(assets[0]),
+        buy=[buy0],
+    )
+
+    params = trading2_pb2.SimTradingParams(
+        assets=lstAssets,
+        baselines=lstBaselines,
+        startTs=tsStart,
+        endTs=tsEnd,
+        strategies=[s0],
+    )
+
+    response = stub.simTrading(tradingdb2_pb2.RequestSimTrading(
+        basicRequest=trading2_pb2.BasicRequestData(
+            token=token,
+        ),
+        params=params,
+    ))
+
+    fv = {'date': [], 'close': []}
+    if len(response.pnl) > 0:
+        pnl = response.pnl[0]
+        pnlt = pnl.total
+        for v in pnlt.values:
+            fv['date'].append(datetime.fromtimestamp(
+                v.ts).strftime('%Y-%m-%d'))
+            fv['close'].append(v.perValue)
+            # fv['close'].append(v.perValue)
+
+    return pd.DataFrame(fv)
+
+
+def showSimTradingPNLAIP(cfg, name: str, codes: list, tt: str, val: int):
+    dffund = simTradingAIP(
+        cfg['servaddr'], cfg['token'], codes, [], 0, 0, tt, val)
     fig = px.line(dffund, x="date", y="close", title=name)
     fig.show()
