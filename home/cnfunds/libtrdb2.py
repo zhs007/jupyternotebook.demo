@@ -132,7 +132,7 @@ def showSimTradingPNL(cfg, name: str, codes: list):
     fig.show()
 
 
-def simTradingAIP(servAddr: str, token: str, assets: list, baselines: list, tsStart: int, tsEnd: int, tt: str, val: int) -> pd.DataFrame:
+def simTradingAIP(servAddr: str, token: str, assets: list, baselines: list, tsStart: int, tsEnd: int, tt: str, val: int) -> list:
     channel = grpc.insecure_channel(servAddr)
     stub = tradingdb2_pb2_grpc.TradingDB2Stub(channel)
 
@@ -148,10 +148,16 @@ def simTradingAIP(servAddr: str, token: str, assets: list, baselines: list, tsSt
         indicator=tt,
         vals=[val],
     )
+
+    paramsbuy = trading2_pb2.BuyParams(
+        aipMoney=10000,
+    )
+
     s0 = trading2_pb2.Strategy(
         name="aip",
         asset=str2Asset(assets[0]),
         buy=[buy0],
+        paramsBuy=paramsbuy,
     )
 
     params = trading2_pb2.SimTradingParams(
@@ -169,21 +175,35 @@ def simTradingAIP(servAddr: str, token: str, assets: list, baselines: list, tsSt
         params=params,
     ))
 
-    fv = {'date': [], 'close': []}
+    fv0 = {'date': [], 'close': []}
     if len(response.pnl) > 0:
         pnl = response.pnl[0]
         pnlt = pnl.total
         for v in pnlt.values:
-            fv['date'].append(datetime.fromtimestamp(
+            fv0['date'].append(datetime.fromtimestamp(
                 v.ts).strftime('%Y-%m-%d'))
-            fv['close'].append(v.perValue)
-            # fv['close'].append(v.perValue)
+            fv0['close'].append(v.perValue)
 
-    return pd.DataFrame(fv)
+    fv1 = {'date': [], 'close': []}
+    if len(response.baseline) > 0:
+        pnl = response.baseline[0]
+        pnlt = pnl.total
+        for v in pnlt.values:
+            fv1['date'].append(datetime.fromtimestamp(
+                v.ts).strftime('%Y-%m-%d'))
+            fv1['close'].append(v.perValue)
+
+    return [pd.DataFrame(fv0), pd.DataFrame(fv1)]
 
 
 def showSimTradingPNLAIP(cfg, name: str, codes: list, tt: str, val: int):
     dffund = simTradingAIP(
-        cfg['servaddr'], cfg['token'], codes, [], 0, 0, tt, val)
-    fig = px.line(dffund, x="date", y="close", title=name)
+        cfg['servaddr'], cfg['token'], codes, codes, 0, 0, tt, val)
+    fig = go.Figure()
+    fig.add_trace(go.Scatter(x=dffund[0]['date'], y=dffund[0]['close'],
+                             mode='lines',
+                             name=name))
+    fig.add_trace(go.Scatter(x=dffund[1]['date'], y=dffund[1]['close'],
+                             mode='lines',
+                             name='baseline'))
     fig.show()
