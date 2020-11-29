@@ -303,3 +303,74 @@ def showSimTrading(cfg, name: str, codes: list, tt: str, buyval: float, sellval:
                              mode='lines',
                              name='baseline'))
     fig.show()
+
+
+def simTradingEx(cfg, assets: list, tsStart: int, tsEnd: int,
+                 ccBuy: trading2_pb2.CtrlCondition, ccSell: trading2_pb2.CtrlCondition,
+                 paramsBuy: trading2_pb2.BuyParams, paramsSell: trading2_pb2.SellParams,
+                 paramsInit: trading2_pb2.InitParams) -> pd.DataFrame:
+    channel = grpc.insecure_channel(cfg['servaddr'])
+    stub = tradingdb2_pb2_grpc.TradingDB2Stub(channel)
+
+    lstAssets = []
+    for a in assets:
+        lstAssets.append(str2Asset(a))
+
+    s0 = trading2_pb2.Strategy(
+        name="normal",
+        asset=str2Asset(assets[0]),
+    )
+
+    if ccBuy != None:
+        s0.buy.extend([ccBuy])
+
+    if ccSell != None:
+        s0.sell.extend([ccSell])
+
+    if paramsBuy != None:
+        s0.paramsBuy.CopyFrom(paramsBuy)
+
+    if paramsSell != None:
+        s0.paramsSell.CopyFrom(paramsSell)
+
+    if paramsInit != None:
+        s0.paramsInit.CopyFrom(paramsInit)
+
+    params = trading2_pb2.SimTradingParams(
+        assets=lstAssets,
+        startTs=tsStart,
+        endTs=tsEnd,
+        strategies=[s0],
+    )
+
+    response = stub.simTrading(tradingdb2_pb2.RequestSimTrading(
+        basicRequest=trading2_pb2.BasicRequestData(
+            token=cfg['token'],
+        ),
+        params=params,
+    ))
+
+    fv0 = {'date': [], 'close': []}
+    if len(response.pnl) > 0:
+        pnl = response.pnl[0]
+        pnlt = pnl.total
+        for v in pnlt.values:
+            fv0['date'].append(datetime.fromtimestamp(
+                v.ts).strftime('%Y-%m-%d'))
+            fv0['close'].append(v.perValue)
+
+    return pd.DataFrame(fv0)
+
+
+def showSimTradingEx(title: str, lst: list, isStaticImg: bool):
+    fig = go.Figure()
+
+    for v in lst:
+        fig.add_trace(go.Scatter(x=v['df']['date'], y=v['df']['close'],
+                                 mode='lines',
+                                 name=v['title']))
+
+    if isStaticImg:
+        fig.show(renderer="png")
+    else:
+        fig.show()
