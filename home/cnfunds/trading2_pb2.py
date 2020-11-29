@@ -20,7 +20,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=b'Z&github.com/zhs007/tradingdb2/tradingpb',
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n\x0etrading2.proto\x12\ttradingpb\"!\n\x10\x42\x61sicRequestData\x12\r\n\x05token\x18\x01 \x01(\t\"3\n\x05\x41sset\x12\x0e\n\x06market\x18\x01 \x01(\t\x12\x0c\n\x04\x63ode\x18\x02 \x01(\t\x12\x0c\n\x04tags\x18\x03 \x03(\t\"\xaa\x01\n\x08\x43trlNode\x12\n\n\x02ts\x18\x01 \x01(\x03\x12\x1d\n\x03src\x18\x02 \x01(\x0b\x32\x10.tradingpb.Asset\x12\x1d\n\x03\x64st\x18\x03 \x01(\x0b\x32\x10.tradingpb.Asset\x12\x11\n\tvolumeSrc\x18\x04 \x01(\x01\x12\x11\n\tvolumeDst\x18\x05 \x01(\x01\x12!\n\x04type\x18\x06 \x01(\x0e\x32\x13.tradingpb.CtrlType\x12\x0b\n\x03\x66\x65\x65\x18\x07 \x01(\x01\"=\n\x0bWalletAsset\x12\x1f\n\x05\x61sset\x18\x01 \x01(\x0b\x32\x10.tradingpb.Asset\x12\r\n\x05value\x18\x02 \x01(\x01\"0\n\x06Wallet\x12&\n\x06\x61ssets\x18\x01 \x03(\x0b\x32\x16.tradingpb.WalletAsset\"\x8d\x01\n\rCtrlCondition\x12\x11\n\tindicator\x18\x01 \x01(\t\x12\x0c\n\x04vals\x18\x02 \x03(\x02\x12\x11\n\toperators\x18\x03 \x03(\t\x12\x15\n\rcombCondition\x18\x04 \x01(\t\x12\x0f\n\x07minvals\x18\x05 \x03(\x02\x12\x0f\n\x07maxvals\x18\x06 \x03(\x02\x12\x0f\n\x07offvals\x18\x07 \x03(\x02\"R\n\tBuyParams\x12\x11\n\tinitMoney\x18\x01 \x01(\x02\x12\x10\n\x08perMoney\x18\x02 \x01(\x02\x12\x0e\n\x06volume\x18\x03 \x01(\x02\x12\x10\n\x08\x61ipMoney\x18\x04 \x01(\x02\">\n\nSellParams\x12\x0e\n\x06volume\x18\x01 \x01(\x02\x12\x11\n\tperVolume\x18\x02 \x01(\x02\x12\r\n\x05money\x18\x03 \x01(\x02\"\"\n\x0eStopLossParams\x12\x10\n\x08\x64rawdown\x18\x01 \x01(\x02\"\"\n\x10TakeProfitParams\x12\x0e\n\x06profit\x18\x01 \x01(\x02\"\xa0\x03\n\x08Strategy\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x1f\n\x05\x61sset\x18\x02 \x01(\x0b\x32\x10.tradingpb.Asset\x12%\n\x03\x62uy\x18\x03 \x03(\x0b\x32\x18.tradingpb.CtrlCondition\x12&\n\x04sell\x18\x04 \x03(\x0b\x32\x18.tradingpb.CtrlCondition\x12*\n\x08stoploss\x18\x05 \x03(\x0b\x32\x18.tradingpb.CtrlCondition\x12,\n\ntakeprofit\x18\x06 \x03(\x0b\x32\x18.tradingpb.CtrlCondition\x12\'\n\tparamsBuy\x18\x07 \x01(\x0b\x32\x14.tradingpb.BuyParams\x12)\n\nparamsSell\x18\x08 \x01(\x0b\x32\x15.tradingpb.SellParams\x12\x31\n\x0eparamsStopLoss\x18\t \x01(\x0b\x32\x19.tradingpb.StopLossParams\x12\x35\n\x10paramsTakeProfit\x18\n \x01(\x0b\x32\x1b.tradingpb.TakeProfitParams\"W\n\x0cPNLDataValue\x12\n\n\x02ts\x18\x01 \x01(\x03\x12\x10\n\x08perValue\x18\x02 \x01(\x02\x12\x0c\n\x04tags\x18\x03 \x03(\t\x12\x0c\n\x04\x63ost\x18\x04 \x01(\x02\x12\r\n\x05value\x18\x05 \x01(\x02\"\xa3\x06\n\x0cPNLAssetData\x12\x1f\n\x05\x61sset\x18\x01 \x01(\x0b\x32\x10.tradingpb.Asset\x12\'\n\x06values\x18\x02 \x03(\x0b\x32\x17.tradingpb.PNLDataValue\x12\x13\n\x0bmaxDrawdown\x18\x03 \x01(\x02\x12\x1a\n\x12maxDrawdownStartTs\x18\x04 \x01(\x03\x12\x18\n\x10maxDrawdownEndTs\x18\x05 \x01(\x03\x12\x11\n\tmaxDrawup\x18\x06 \x01(\x02\x12\x18\n\x10maxDrawupStartTs\x18\x07 \x01(\x03\x12\x16\n\x0emaxDrawupEndTs\x18\x08 \x01(\x03\x12\x0e\n\x06sharpe\x18\t \x01(\x02\x12\x19\n\x11\x61nnualizedReturns\x18\n \x01(\x02\x12\x1c\n\x14\x61nnualizedVolatility\x18\x0b \x01(\x02\x12\x14\n\x0ctotalReturns\x18\x0c \x01(\x02\x12\x10\n\x08variance\x18\r \x01(\x02\x12\x10\n\x08\x62uyTimes\x18\x0e \x01(\x05\x12\x11\n\tsellTimes\x18\x0f \x01(\x05\x12\x15\n\rstoplossTimes\x18\x10 \x01(\x05\x12\x12\n\nmaxUpDayTs\x18\x11 \x01(\x03\x12\x13\n\x0bmaxPerUpDay\x18\x12 \x01(\x02\x12\x14\n\x0cmaxDownDayTs\x18\x13 \x01(\x03\x12\x15\n\rmaxPerDownDay\x18\x14 \x01(\x02\x12\x13\n\x0bmaxUpWeekTs\x18\x15 \x01(\x03\x12\x14\n\x0cmaxPerUpWeek\x18\x16 \x01(\x02\x12\x15\n\rmaxDownWeekTs\x18\x17 \x01(\x03\x12\x16\n\x0emaxPerDownWeek\x18\x18 \x01(\x02\x12\x14\n\x0cmaxUpMonthTs\x18\x19 \x01(\x03\x12\x15\n\rmaxPerUpMonth\x18\x1a \x01(\x02\x12\x16\n\x0emaxDownMonthTs\x18\x1b \x01(\x03\x12\x17\n\x0fmaxPerDownMonth\x18\x1c \x01(\x02\x12\x13\n\x0bmaxUpYearTs\x18\x1d \x01(\x03\x12\x14\n\x0cmaxPerUpYear\x18\x1e \x01(\x02\x12\x15\n\rmaxDownYearTs\x18\x1f \x01(\x03\x12\x16\n\x0emaxPerDownYear\x18  \x01(\x02\x12$\n\x07lstCtrl\x18! \x03(\x0b\x32\x13.tradingpb.CtrlNode\"h\n\x07PNLData\x12\x0c\n\x04name\x18\x01 \x01(\t\x12&\n\x05total\x18\x02 \x01(\x0b\x32\x17.tradingpb.PNLAssetData\x12\'\n\x06\x61ssets\x18\x03 \x03(\x0b\x32\x17.tradingpb.PNLAssetData\"\xc5\x01\n\x10SimTradingParams\x12 \n\x06\x61ssets\x18\x01 \x03(\x0b\x32\x10.tradingpb.Asset\x12#\n\tbaselines\x18\x02 \x03(\x0b\x32\x10.tradingpb.Asset\x12\x0f\n\x07startTs\x18\x03 \x01(\x03\x12\r\n\x05\x65ndTs\x18\x04 \x01(\x03\x12\'\n\nstrategies\x18\x05 \x03(\x0b\x32\x13.tradingpb.Strategy\x12!\n\x06wallet\x18\x06 \x01(\x0b\x32\x11.tradingpb.Wallet\"5\n\x0fTradingNodeInfo\x12\x10\n\x08maxTasks\x18\x01 \x01(\x05\x12\x10\n\x08\x63urTasks\x18\x02 \x01(\x05*\x83\x01\n\x08\x43trlType\x12\r\n\tCTRL_INIT\x10\x00\x12\x0c\n\x08\x43TRL_BUY\x10\x01\x12\r\n\tCTRL_SELL\x10\x02\x12\x11\n\rCTRL_STOPLOSS\x10\x03\x12\x13\n\x0f\x43TRL_TAKEPROFIT\x10\x04\x12\x11\n\rCTRL_WITHDRAW\x10\x05\x12\x10\n\x0c\x43TRL_DEPOSIT\x10\x06\x42(Z&github.com/zhs007/tradingdb2/tradingpbb\x06proto3'
+  serialized_pb=b'\n\x0etrading2.proto\x12\ttradingpb\"!\n\x10\x42\x61sicRequestData\x12\r\n\x05token\x18\x01 \x01(\t\"3\n\x05\x41sset\x12\x0e\n\x06market\x18\x01 \x01(\t\x12\x0c\n\x04\x63ode\x18\x02 \x01(\t\x12\x0c\n\x04tags\x18\x03 \x03(\t\"\xaa\x01\n\x08\x43trlNode\x12\n\n\x02ts\x18\x01 \x01(\x03\x12\x1d\n\x03src\x18\x02 \x01(\x0b\x32\x10.tradingpb.Asset\x12\x1d\n\x03\x64st\x18\x03 \x01(\x0b\x32\x10.tradingpb.Asset\x12\x11\n\tvolumeSrc\x18\x04 \x01(\x01\x12\x11\n\tvolumeDst\x18\x05 \x01(\x01\x12!\n\x04type\x18\x06 \x01(\x0e\x32\x13.tradingpb.CtrlType\x12\x0b\n\x03\x66\x65\x65\x18\x07 \x01(\x01\"=\n\x0bWalletAsset\x12\x1f\n\x05\x61sset\x18\x01 \x01(\x0b\x32\x10.tradingpb.Asset\x12\r\n\x05value\x18\x02 \x01(\x01\"0\n\x06Wallet\x12&\n\x06\x61ssets\x18\x01 \x03(\x0b\x32\x16.tradingpb.WalletAsset\"\x8d\x01\n\rCtrlCondition\x12\x11\n\tindicator\x18\x01 \x01(\t\x12\x0c\n\x04vals\x18\x02 \x03(\x02\x12\x11\n\toperators\x18\x03 \x03(\t\x12\x15\n\rcombCondition\x18\x04 \x01(\t\x12\x0f\n\x07minvals\x18\x05 \x03(\x02\x12\x0f\n\x07maxvals\x18\x06 \x03(\x02\x12\x0f\n\x07offvals\x18\x07 \x03(\x02\"\x9d\x01\n\tBuyParams\x12\x15\n\tinitMoney\x18\x01 \x01(\x02\x42\x02\x18\x01\x12\x14\n\x08perMoney\x18\x02 \x01(\x02\x42\x02\x18\x01\x12\x0e\n\x06volume\x18\x03 \x01(\x02\x12\x10\n\x08\x61ipMoney\x18\x04 \x01(\x02\x12\x14\n\x0cperInitMoney\x18\x05 \x01(\x02\x12\x14\n\x0cperHandMoney\x18\x06 \x01(\x02\x12\x15\n\rperTotalMoney\x18\x07 \x01(\x02\">\n\nSellParams\x12\x0e\n\x06volume\x18\x01 \x01(\x02\x12\x11\n\tperVolume\x18\x02 \x01(\x02\x12\r\n\x05money\x18\x03 \x01(\x02\"\"\n\x0eStopLossParams\x12\x10\n\x08\x64rawdown\x18\x01 \x01(\x02\"\"\n\x10TakeProfitParams\x12\x0e\n\x06profit\x18\x01 \x01(\x02\"+\n\nInitParams\x12\r\n\x05money\x18\x01 \x01(\x02\x12\x0e\n\x06vomume\x18\x02 \x01(\x02\"\xcb\x03\n\x08Strategy\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x1f\n\x05\x61sset\x18\x02 \x01(\x0b\x32\x10.tradingpb.Asset\x12%\n\x03\x62uy\x18\x03 \x03(\x0b\x32\x18.tradingpb.CtrlCondition\x12&\n\x04sell\x18\x04 \x03(\x0b\x32\x18.tradingpb.CtrlCondition\x12*\n\x08stoploss\x18\x05 \x03(\x0b\x32\x18.tradingpb.CtrlCondition\x12,\n\ntakeprofit\x18\x06 \x03(\x0b\x32\x18.tradingpb.CtrlCondition\x12\'\n\tparamsBuy\x18\x07 \x01(\x0b\x32\x14.tradingpb.BuyParams\x12)\n\nparamsSell\x18\x08 \x01(\x0b\x32\x15.tradingpb.SellParams\x12\x31\n\x0eparamsStopLoss\x18\t \x01(\x0b\x32\x19.tradingpb.StopLossParams\x12\x35\n\x10paramsTakeProfit\x18\n \x01(\x0b\x32\x1b.tradingpb.TakeProfitParams\x12)\n\nparamsInit\x18\x0b \x01(\x0b\x32\x15.tradingpb.InitParams\"v\n\x0cPNLDataValue\x12\n\n\x02ts\x18\x01 \x01(\x03\x12\x10\n\x08perValue\x18\x02 \x01(\x02\x12\x0c\n\x04tags\x18\x03 \x03(\t\x12\x0c\n\x04\x63ost\x18\x04 \x01(\x02\x12\r\n\x05value\x18\x05 \x01(\x02\x12\x0e\n\x06volume\x18\x06 \x01(\x02\x12\r\n\x05price\x18\x07 \x01(\x02\"\xa3\x06\n\x0cPNLAssetData\x12\x1f\n\x05\x61sset\x18\x01 \x01(\x0b\x32\x10.tradingpb.Asset\x12\'\n\x06values\x18\x02 \x03(\x0b\x32\x17.tradingpb.PNLDataValue\x12\x13\n\x0bmaxDrawdown\x18\x03 \x01(\x02\x12\x1a\n\x12maxDrawdownStartTs\x18\x04 \x01(\x03\x12\x18\n\x10maxDrawdownEndTs\x18\x05 \x01(\x03\x12\x11\n\tmaxDrawup\x18\x06 \x01(\x02\x12\x18\n\x10maxDrawupStartTs\x18\x07 \x01(\x03\x12\x16\n\x0emaxDrawupEndTs\x18\x08 \x01(\x03\x12\x0e\n\x06sharpe\x18\t \x01(\x02\x12\x19\n\x11\x61nnualizedReturns\x18\n \x01(\x02\x12\x1c\n\x14\x61nnualizedVolatility\x18\x0b \x01(\x02\x12\x14\n\x0ctotalReturns\x18\x0c \x01(\x02\x12\x10\n\x08variance\x18\r \x01(\x02\x12\x10\n\x08\x62uyTimes\x18\x0e \x01(\x05\x12\x11\n\tsellTimes\x18\x0f \x01(\x05\x12\x15\n\rstoplossTimes\x18\x10 \x01(\x05\x12\x12\n\nmaxUpDayTs\x18\x11 \x01(\x03\x12\x13\n\x0bmaxPerUpDay\x18\x12 \x01(\x02\x12\x14\n\x0cmaxDownDayTs\x18\x13 \x01(\x03\x12\x15\n\rmaxPerDownDay\x18\x14 \x01(\x02\x12\x13\n\x0bmaxUpWeekTs\x18\x15 \x01(\x03\x12\x14\n\x0cmaxPerUpWeek\x18\x16 \x01(\x02\x12\x15\n\rmaxDownWeekTs\x18\x17 \x01(\x03\x12\x16\n\x0emaxPerDownWeek\x18\x18 \x01(\x02\x12\x14\n\x0cmaxUpMonthTs\x18\x19 \x01(\x03\x12\x15\n\rmaxPerUpMonth\x18\x1a \x01(\x02\x12\x16\n\x0emaxDownMonthTs\x18\x1b \x01(\x03\x12\x17\n\x0fmaxPerDownMonth\x18\x1c \x01(\x02\x12\x13\n\x0bmaxUpYearTs\x18\x1d \x01(\x03\x12\x14\n\x0cmaxPerUpYear\x18\x1e \x01(\x02\x12\x15\n\rmaxDownYearTs\x18\x1f \x01(\x03\x12\x16\n\x0emaxPerDownYear\x18  \x01(\x02\x12$\n\x07lstCtrl\x18! \x03(\x0b\x32\x13.tradingpb.CtrlNode\"h\n\x07PNLData\x12\x0c\n\x04name\x18\x01 \x01(\t\x12&\n\x05total\x18\x02 \x01(\x0b\x32\x17.tradingpb.PNLAssetData\x12\'\n\x06\x61ssets\x18\x03 \x03(\x0b\x32\x17.tradingpb.PNLAssetData\"\xc5\x01\n\x10SimTradingParams\x12 \n\x06\x61ssets\x18\x01 \x03(\x0b\x32\x10.tradingpb.Asset\x12#\n\tbaselines\x18\x02 \x03(\x0b\x32\x10.tradingpb.Asset\x12\x0f\n\x07startTs\x18\x03 \x01(\x03\x12\r\n\x05\x65ndTs\x18\x04 \x01(\x03\x12\'\n\nstrategies\x18\x05 \x03(\x0b\x32\x13.tradingpb.Strategy\x12!\n\x06wallet\x18\x06 \x01(\x0b\x32\x11.tradingpb.Wallet\"5\n\x0fTradingNodeInfo\x12\x10\n\x08maxTasks\x18\x01 \x01(\x05\x12\x10\n\x08\x63urTasks\x18\x02 \x01(\x05*\x83\x01\n\x08\x43trlType\x12\r\n\tCTRL_INIT\x10\x00\x12\x0c\n\x08\x43TRL_BUY\x10\x01\x12\r\n\tCTRL_SELL\x10\x02\x12\x11\n\rCTRL_STOPLOSS\x10\x03\x12\x13\n\x0f\x43TRL_TAKEPROFIT\x10\x04\x12\x11\n\rCTRL_WITHDRAW\x10\x05\x12\x10\n\x0c\x43TRL_DEPOSIT\x10\x06\x42(Z&github.com/zhs007/tradingdb2/tradingpbb\x06proto3'
 )
 
 _CTRLTYPE = _descriptor.EnumDescriptor(
@@ -68,8 +68,8 @@ _CTRLTYPE = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   serialized_options=None,
-  serialized_start=2443,
-  serialized_end=2574,
+  serialized_start=2638,
+  serialized_end=2769,
 )
 _sym_db.RegisterEnumDescriptor(_CTRLTYPE)
 
@@ -395,14 +395,14 @@ _BUYPARAMS = _descriptor.Descriptor(
       has_default_value=False, default_value=float(0),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+      serialized_options=b'\030\001', file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
       name='perMoney', full_name='tradingpb.BuyParams.perMoney', index=1,
       number=2, type=2, cpp_type=6, label=1,
       has_default_value=False, default_value=float(0),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+      serialized_options=b'\030\001', file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
       name='volume', full_name='tradingpb.BuyParams.volume', index=2,
       number=3, type=2, cpp_type=6, label=1,
@@ -413,6 +413,27 @@ _BUYPARAMS = _descriptor.Descriptor(
     _descriptor.FieldDescriptor(
       name='aipMoney', full_name='tradingpb.BuyParams.aipMoney', index=3,
       number=4, type=2, cpp_type=6, label=1,
+      has_default_value=False, default_value=float(0),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='perInitMoney', full_name='tradingpb.BuyParams.perInitMoney', index=4,
+      number=5, type=2, cpp_type=6, label=1,
+      has_default_value=False, default_value=float(0),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='perHandMoney', full_name='tradingpb.BuyParams.perHandMoney', index=5,
+      number=6, type=2, cpp_type=6, label=1,
+      has_default_value=False, default_value=float(0),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='perTotalMoney', full_name='tradingpb.BuyParams.perTotalMoney', index=6,
+      number=7, type=2, cpp_type=6, label=1,
       has_default_value=False, default_value=float(0),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
@@ -429,8 +450,8 @@ _BUYPARAMS = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=547,
-  serialized_end=629,
+  serialized_start=548,
+  serialized_end=705,
 )
 
 
@@ -475,8 +496,8 @@ _SELLPARAMS = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=631,
-  serialized_end=693,
+  serialized_start=707,
+  serialized_end=769,
 )
 
 
@@ -507,8 +528,8 @@ _STOPLOSSPARAMS = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=695,
-  serialized_end=729,
+  serialized_start=771,
+  serialized_end=805,
 )
 
 
@@ -539,8 +560,47 @@ _TAKEPROFITPARAMS = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=731,
-  serialized_end=765,
+  serialized_start=807,
+  serialized_end=841,
+)
+
+
+_INITPARAMS = _descriptor.Descriptor(
+  name='InitParams',
+  full_name='tradingpb.InitParams',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='money', full_name='tradingpb.InitParams.money', index=0,
+      number=1, type=2, cpp_type=6, label=1,
+      has_default_value=False, default_value=float(0),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='vomume', full_name='tradingpb.InitParams.vomume', index=1,
+      number=2, type=2, cpp_type=6, label=1,
+      has_default_value=False, default_value=float(0),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=843,
+  serialized_end=886,
 )
 
 
@@ -622,6 +682,13 @@ _STRATEGY = _descriptor.Descriptor(
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='paramsInit', full_name='tradingpb.Strategy.paramsInit', index=10,
+      number=11, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
   ],
   extensions=[
   ],
@@ -634,8 +701,8 @@ _STRATEGY = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=768,
-  serialized_end=1184,
+  serialized_start=889,
+  serialized_end=1348,
 )
 
 
@@ -682,6 +749,20 @@ _PNLDATAVALUE = _descriptor.Descriptor(
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='volume', full_name='tradingpb.PNLDataValue.volume', index=5,
+      number=6, type=2, cpp_type=6, label=1,
+      has_default_value=False, default_value=float(0),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='price', full_name='tradingpb.PNLDataValue.price', index=6,
+      number=7, type=2, cpp_type=6, label=1,
+      has_default_value=False, default_value=float(0),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
   ],
   extensions=[
   ],
@@ -694,8 +775,8 @@ _PNLDATAVALUE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1186,
-  serialized_end=1273,
+  serialized_start=1350,
+  serialized_end=1468,
 )
 
 
@@ -950,8 +1031,8 @@ _PNLASSETDATA = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1276,
-  serialized_end=2079,
+  serialized_start=1471,
+  serialized_end=2274,
 )
 
 
@@ -996,8 +1077,8 @@ _PNLDATA = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2081,
-  serialized_end=2185,
+  serialized_start=2276,
+  serialized_end=2380,
 )
 
 
@@ -1063,8 +1144,8 @@ _SIMTRADINGPARAMS = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2188,
-  serialized_end=2385,
+  serialized_start=2383,
+  serialized_end=2580,
 )
 
 
@@ -1102,8 +1183,8 @@ _TRADINGNODEINFO = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2387,
-  serialized_end=2440,
+  serialized_start=2582,
+  serialized_end=2635,
 )
 
 _CTRLNODE.fields_by_name['src'].message_type = _ASSET
@@ -1120,6 +1201,7 @@ _STRATEGY.fields_by_name['paramsBuy'].message_type = _BUYPARAMS
 _STRATEGY.fields_by_name['paramsSell'].message_type = _SELLPARAMS
 _STRATEGY.fields_by_name['paramsStopLoss'].message_type = _STOPLOSSPARAMS
 _STRATEGY.fields_by_name['paramsTakeProfit'].message_type = _TAKEPROFITPARAMS
+_STRATEGY.fields_by_name['paramsInit'].message_type = _INITPARAMS
 _PNLASSETDATA.fields_by_name['asset'].message_type = _ASSET
 _PNLASSETDATA.fields_by_name['values'].message_type = _PNLDATAVALUE
 _PNLASSETDATA.fields_by_name['lstCtrl'].message_type = _CTRLNODE
@@ -1139,6 +1221,7 @@ DESCRIPTOR.message_types_by_name['BuyParams'] = _BUYPARAMS
 DESCRIPTOR.message_types_by_name['SellParams'] = _SELLPARAMS
 DESCRIPTOR.message_types_by_name['StopLossParams'] = _STOPLOSSPARAMS
 DESCRIPTOR.message_types_by_name['TakeProfitParams'] = _TAKEPROFITPARAMS
+DESCRIPTOR.message_types_by_name['InitParams'] = _INITPARAMS
 DESCRIPTOR.message_types_by_name['Strategy'] = _STRATEGY
 DESCRIPTOR.message_types_by_name['PNLDataValue'] = _PNLDATAVALUE
 DESCRIPTOR.message_types_by_name['PNLAssetData'] = _PNLASSETDATA
@@ -1218,6 +1301,13 @@ TakeProfitParams = _reflection.GeneratedProtocolMessageType('TakeProfitParams', 
   })
 _sym_db.RegisterMessage(TakeProfitParams)
 
+InitParams = _reflection.GeneratedProtocolMessageType('InitParams', (_message.Message,), {
+  'DESCRIPTOR' : _INITPARAMS,
+  '__module__' : 'trading2_pb2'
+  # @@protoc_insertion_point(class_scope:tradingpb.InitParams)
+  })
+_sym_db.RegisterMessage(InitParams)
+
 Strategy = _reflection.GeneratedProtocolMessageType('Strategy', (_message.Message,), {
   'DESCRIPTOR' : _STRATEGY,
   '__module__' : 'trading2_pb2'
@@ -1262,4 +1352,6 @@ _sym_db.RegisterMessage(TradingNodeInfo)
 
 
 DESCRIPTOR._options = None
+_BUYPARAMS.fields_by_name['initMoney']._options = None
+_BUYPARAMS.fields_by_name['perMoney']._options = None
 # @@protoc_insertion_point(module_scope)

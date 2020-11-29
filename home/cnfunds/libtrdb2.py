@@ -44,9 +44,12 @@ def getFundValues(servAddr: str, token: str, market: str, symbol: str, tsStart: 
     return pd.DataFrame(fv)
 
 
-def showCNFund(cfg, code):
+def showCNFund(cfg, code, start: str, end: str):
+    tsStart = int(datetime.timestamp(datetime.strptime(start, '%Y%m%d')))
+    tsEnd = int(datetime.timestamp(datetime.strptime(end, '%Y%m%d')))
+
     dffund = getFundValues(
-        cfg['servaddr'], cfg['token'], 'cnfunds', code, 0, 0)
+        cfg['servaddr'], cfg['token'], 'cnfunds', code, tsStart, tsEnd)
     fig = px.line(dffund, x="date", y="close", title=code)
     fig.show()
 
@@ -199,6 +202,99 @@ def simTradingAIP(servAddr: str, token: str, assets: list, baselines: list, tsSt
 def showSimTradingPNLAIP(cfg, name: str, codes: list, tt: str, val: int):
     dffund = simTradingAIP(
         cfg['servaddr'], cfg['token'], codes, codes, 0, 0, tt, val)
+    fig = go.Figure()
+    fig.add_trace(go.Scatter(x=dffund[0]['date'], y=dffund[0]['close'],
+                             mode='lines',
+                             name=name))
+    fig.add_trace(go.Scatter(x=dffund[1]['date'], y=dffund[1]['close'],
+                             mode='lines',
+                             name='baseline'))
+    fig.show()
+
+
+def simTrading(servAddr: str, token: str, assets: list, baselines: list, tsStart: int, tsEnd: int, tt: str, buyval: float, sellval: float) -> list:
+    channel = grpc.insecure_channel(servAddr)
+    stub = tradingdb2_pb2_grpc.TradingDB2Stub(channel)
+
+    lstAssets = []
+    for a in assets:
+        lstAssets.append(str2Asset(a))
+
+    lstBaselines = []
+    for b in baselines:
+        lstBaselines.append(str2Asset(b))
+
+    buy0 = trading2_pb2.CtrlCondition(
+        indicator=tt,
+        vals=[buyval],
+    )
+
+    sell0 = trading2_pb2.CtrlCondition(
+        indicator=tt,
+        vals=[sellval],
+    )
+
+    paramsbuy = trading2_pb2.BuyParams(
+        perHandMoney=1,
+    )
+
+    paramssell = trading2_pb2.SellParams(
+        perVolume=1,
+    )
+
+    paramsinit = trading2_pb2.InitParams(
+        money=10000,
+    )
+
+    s0 = trading2_pb2.Strategy(
+        name="normal",
+        asset=str2Asset(assets[0]),
+        buy=[buy0],
+        sell=[sell0],
+        paramsBuy=paramsbuy,
+        paramsSell=paramssell,
+        paramsInit=paramsinit
+    )
+
+    params = trading2_pb2.SimTradingParams(
+        assets=lstAssets,
+        baselines=lstBaselines,
+        startTs=tsStart,
+        endTs=tsEnd,
+        strategies=[s0],
+    )
+
+    response = stub.simTrading(tradingdb2_pb2.RequestSimTrading(
+        basicRequest=trading2_pb2.BasicRequestData(
+            token=token,
+        ),
+        params=params,
+    ))
+
+    fv0 = {'date': [], 'close': []}
+    if len(response.pnl) > 0:
+        pnl = response.pnl[0]
+        pnlt = pnl.total
+        for v in pnlt.values:
+            fv0['date'].append(datetime.fromtimestamp(
+                v.ts).strftime('%Y-%m-%d'))
+            fv0['close'].append(v.perValue)
+
+    fv1 = {'date': [], 'close': []}
+    if len(response.baseline) > 0:
+        pnl = response.baseline[0]
+        pnlt = pnl.total
+        for v in pnlt.values:
+            fv1['date'].append(datetime.fromtimestamp(
+                v.ts).strftime('%Y-%m-%d'))
+            fv1['close'].append(v.perValue)
+
+    return [pd.DataFrame(fv0), pd.DataFrame(fv1)]
+
+
+def showSimTrading(cfg, name: str, codes: list, tt: str, buyval: float, sellval: float):
+    dffund = simTrading(
+        cfg['servaddr'], cfg['token'], codes, codes, 0, 0, tt, buyval, sellval)
     fig = go.Figure()
     fig.add_trace(go.Scatter(x=dffund[0]['date'], y=dffund[0]['close'],
                              mode='lines',
