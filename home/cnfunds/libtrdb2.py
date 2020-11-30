@@ -308,7 +308,7 @@ def showSimTrading(cfg, name: str, codes: list, tt: str, buyval: float, sellval:
 def simTradingEx(cfg, assets: list, tsStart: int, tsEnd: int,
                  ccBuy: trading2_pb2.CtrlCondition, ccSell: trading2_pb2.CtrlCondition,
                  paramsBuy: trading2_pb2.BuyParams, paramsSell: trading2_pb2.SellParams,
-                 paramsInit: trading2_pb2.InitParams) -> pd.DataFrame:
+                 paramsInit: trading2_pb2.InitParams, paramsAIP: trading2_pb2.AIPParams) -> pd.DataFrame:
     channel = grpc.insecure_channel(cfg['servaddr'])
     stub = tradingdb2_pb2_grpc.TradingDB2Stub(channel)
 
@@ -335,6 +335,9 @@ def simTradingEx(cfg, assets: list, tsStart: int, tsEnd: int,
 
     if paramsInit != None:
         s0.paramsInit.CopyFrom(paramsInit)
+
+    if paramsAIP != None:
+        s0.paramsAIP.CopyFrom(paramsAIP)
 
     params = trading2_pb2.SimTradingParams(
         assets=lstAssets,
