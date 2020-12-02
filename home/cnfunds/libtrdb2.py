@@ -5,6 +5,7 @@ import tradingdb2_pb2
 import tradingdb2_pb2_grpc
 import yaml
 from datetime import datetime
+import time
 import plotly.express as px
 from plotly.subplots import make_subplots
 import plotly.graph_objects as go
@@ -377,3 +378,8 @@ def showSimTradingEx(title: str, lst: list, isStaticImg: bool):
         fig.show(renderer="png")
     else:
         fig.show()
+
+
+def str2timestamp(strTime: str, strFormat: str) -> int:
+    tm = time.strptime(strTime, strFormat)
+    return int(time.mktime(tm))
