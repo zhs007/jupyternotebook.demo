@@ -367,9 +367,9 @@ def simTradingEx(cfg, assets: list, tsStart: int, tsEnd: int,
 
 
 def simTradingEx2(cfg, assets: list, tsStart: int, tsEnd: int,
-                 lstBuy: list, lstSell: list,
-                 paramsBuy: trading2_pb2.BuyParams, paramsSell: trading2_pb2.SellParams,
-                 paramsInit: trading2_pb2.InitParams, paramsAIP: trading2_pb2.AIPParams) -> pd.DataFrame:
+                  lstBuy: list, lstSell: list,
+                  paramsBuy: trading2_pb2.BuyParams, paramsSell: trading2_pb2.SellParams,
+                  paramsInit: trading2_pb2.InitParams, paramsAIP: trading2_pb2.AIPParams) -> pd.DataFrame:
     channel = grpc.insecure_channel(cfg['servaddr'])
     stub = tradingdb2_pb2_grpc.TradingDB2Stub(channel)
 
@@ -423,7 +423,7 @@ def simTradingEx2(cfg, assets: list, tsStart: int, tsEnd: int,
                 v.ts).strftime('%Y-%m-%d'))
             fv0['close'].append(v.perValue)
 
-    return pd.DataFrame(fv0)    
+    return pd.DataFrame(fv0)
 
 
 def showSimTradingEx(title: str, lst: list, isStaticImg: bool):
@@ -443,3 +443,180 @@ def showSimTradingEx(title: str, lst: list, isStaticImg: bool):
 def str2timestamp(strTime: str, strFormat: str) -> int:
     tm = time.strptime(strTime, strFormat)
     return int(time.mktime(tm))
+
+
+def simTradingEx3(cfg, assets: list, tsStart: int, tsEnd: int,
+                  lstBuy: list, lstSell: list,
+                  paramsBuy: trading2_pb2.BuyParams, paramsSell: trading2_pb2.SellParams,
+                  paramsInit: trading2_pb2.InitParams, paramsAIP: trading2_pb2.AIPParams) -> trading2_pb2.PNLAssetData:
+    channel = grpc.insecure_channel(cfg['servaddr'])
+    stub = tradingdb2_pb2_grpc.TradingDB2Stub(channel)
+
+    lstAssets = []
+    for a in assets:
+        lstAssets.append(str2Asset(a))
+
+    s0 = trading2_pb2.Strategy(
+        name="normal",
+        asset=str2Asset(assets[0]),
+    )
+
+    if lstBuy != None:
+        s0.buy.extend(lstBuy)
+
+    if lstSell != None:
+        s0.sell.extend(lstSell)
+
+    if paramsBuy != None:
+        s0.paramsBuy.CopyFrom(paramsBuy)
+
+    if paramsSell != None:
+        s0.paramsSell.CopyFrom(paramsSell)
+
+    if paramsInit != None:
+        s0.paramsInit.CopyFrom(paramsInit)
+
+    if paramsAIP != None:
+        s0.paramsAIP.CopyFrom(paramsAIP)
+
+    params = trading2_pb2.SimTradingParams(
+        assets=lstAssets,
+        startTs=tsStart,
+        endTs=tsEnd,
+        strategies=[s0],
+    )
+
+    response = stub.simTrading(tradingdb2_pb2.RequestSimTrading(
+        basicRequest=trading2_pb2.BasicRequestData(
+            token=cfg['token'],
+        ),
+        params=params,
+    ))
+
+    if len(response.pnl) > 0:
+        pnl = response.pnl[0]
+        return pnl.total
+
+    return None
+
+
+def nextWeekDay(cday: int, offday: int, startday: int = 1, endday: int = 5) -> int:
+    """
+    nextWeekDay - 计算周几向后偏移，譬如周1的2天后是周3，周5的2天后是周2
+    """
+
+    if cday < startday:
+        cday = startday
+
+    offday = offday % 7
+
+    if cday + offday > endday:
+        cday += offday + 2
+    else:
+        cday += offday
+
+    while cday > 6:
+        cday -= 7
+
+    return cday
+
+
+def asset2str(asset: trading2_pb2.Asset) -> str:
+    return asset.market + '.' + asset.code
+
+
+def buildPNLReport(lstpnl: list) -> pd.DataFrame:
+    """
+    buildPNLReport - 将PNL列表转换为pandas.DataFrame，方便计算
+    """
+    fv0 = {
+        'title': [],
+        'asset': [],
+        'maxDrawdown': [],
+        'maxDrawdownStart': [],
+        'maxDrawdownEnd': [],
+        'maxDrawup': [],
+        'maxDrawupStart': [],
+        'maxDrawupEnd': [],
+        'sharpe': [],
+        'annualizedReturns': [],
+        'annualizedVolatility': [],
+        'totalReturns': [],
+        'variance': [],
+        'buyTimes': [],
+        'sellTimes': [],
+        'stoplossTimes': [],
+        'maxUpDay': [],
+        'maxPerUpDay': [],
+        'maxDownDay': [],
+        'maxPerDownDay': [],
+        'maxUpWeek': [],
+        'maxPerUpWeek': [],
+        'maxDownWeek': [],
+        'maxPerDownWeek': [],
+        'maxUpMonth': [],
+        'maxPerUpMonth': [],
+        'maxDownMonth': [],
+        'maxPerDownMonth': [],
+        'maxUpYear': [],
+        'maxPerUpYear': [],
+        'maxDownYear': [],
+        'maxPerDownYear': [],
+    }
+
+    for v in lstpnl:
+        fv0['title'].append(v['title'])
+
+        fv0['asset'].append(asset2str(v['pnl'].asset))
+
+        fv0['maxDrawdown'].append(v['pnl'].maxDrawdown)
+        fv0['maxDrawdownStart'].append(datetime.fromtimestamp(
+            v['pnl'].maxDrawdownStartTs).strftime('%Y-%m-%d'))
+        fv0['maxDrawdownEnd'].append(datetime.fromtimestamp(
+            v['pnl'].maxDrawdownEndTs).strftime('%Y-%m-%d'))
+
+        fv0['maxDrawup'].append(v['pnl'].maxDrawup)
+        fv0['maxDrawupStart'].append(datetime.fromtimestamp(
+            v['pnl'].maxDrawupStartTs).strftime('%Y-%m-%d'))
+        fv0['maxDrawupEnd'].append(datetime.fromtimestamp(
+            v['pnl'].maxDrawupEndTs).strftime('%Y-%m-%d'))
+
+        fv0['sharpe'].append(v['pnl'].sharpe)
+        fv0['annualizedReturns'].append(v['pnl'].annualizedReturns)
+        fv0['annualizedVolatility'].append(v['pnl'].annualizedVolatility)
+        fv0['totalReturns'].append(v['pnl'].totalReturns)
+        fv0['variance'].append(v['pnl'].variance)
+
+        fv0['buyTimes'].append(v['pnl'].buyTimes)
+        fv0['sellTimes'].append(v['pnl'].sellTimes)
+        fv0['stoplossTimes'].append(v['pnl'].stoplossTimes)
+
+        fv0['maxUpDay'].append(datetime.fromtimestamp(
+            v['pnl'].maxUpDayTs).strftime('%Y-%m-%d'))
+        fv0['maxPerUpDay'].append(v['pnl'].maxPerUpDay)
+        fv0['maxDownDay'].append(datetime.fromtimestamp(
+            v['pnl'].maxDownDayTs).strftime('%Y-%m-%d'))
+        fv0['maxPerDownDay'].append(v['pnl'].maxPerDownDay)
+
+        fv0['maxUpWeek'].append(datetime.fromtimestamp(
+            v['pnl'].maxUpWeekTs).strftime('%Y-%m-%d'))
+        fv0['maxPerUpWeek'].append(v['pnl'].maxPerUpWeek)
+        fv0['maxDownWeek'].append(datetime.fromtimestamp(
+            v['pnl'].maxDownWeekTs).strftime('%Y-%m-%d'))
+        fv0['maxPerDownWeek'].append(v['pnl'].maxPerDownWeek)
+
+        fv0['maxUpMonth'].append(datetime.fromtimestamp(
+            v['pnl'].maxUpMonthTs).strftime('%Y-%m-%d'))
+        fv0['maxPerUpMonth'].append(v['pnl'].maxPerUpMonth)
+        fv0['maxDownMonth'].append(datetime.fromtimestamp(
+            v['pnl'].maxDownMonthTs).strftime('%Y-%m-%d'))
+        fv0['maxPerDownMonth'].append(v['pnl'].maxPerDownMonth)
+
+        fv0['maxUpYear'].append(datetime.fromtimestamp(
+            v['pnl'].maxUpYearTs).strftime('%Y-%m-%d'))
+        fv0['maxPerUpYear'].append(v['pnl'].maxPerUpYear)
+        fv0['maxDownYear'].append(datetime.fromtimestamp(
+            v['pnl'].maxDownYearTs).strftime('%Y-%m-%d'))
+        fv0['maxPerDownYear'].append(v['pnl'].maxPerDownYear)
+
+    return pd.DataFrame(fv0)
