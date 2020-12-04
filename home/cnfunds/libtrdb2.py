@@ -448,7 +448,7 @@ def str2timestamp(strTime: str, strFormat: str) -> int:
 def simTradingEx3(cfg, assets: list, tsStart: int, tsEnd: int,
                   lstBuy: list, lstSell: list,
                   paramsBuy: trading2_pb2.BuyParams, paramsSell: trading2_pb2.SellParams,
-                  paramsInit: trading2_pb2.InitParams, paramsAIP: trading2_pb2.AIPParams) -> trading2_pb2.PNLAssetData:
+                  paramsInit: trading2_pb2.InitParams, paramsAIP: trading2_pb2.AIPParams, ignoreCache: bool = False) -> trading2_pb2.PNLAssetData:
     channel = grpc.insecure_channel(cfg['servaddr'])
     stub = tradingdb2_pb2_grpc.TradingDB2Stub(channel)
 
@@ -491,6 +491,7 @@ def simTradingEx3(cfg, assets: list, tsStart: int, tsEnd: int,
             token=cfg['token'],
         ),
         params=params,
+        ignoreCache=ignoreCache,
     ))
 
     if len(response.pnl) > 0:
