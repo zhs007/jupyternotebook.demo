@@ -45,6 +45,11 @@ class TradingDB2Stub(object):
                 request_serializer=tradingdb2__pb2.RequestSimTrading.SerializeToString,
                 response_deserializer=tradingdb2__pb2.ReplySimTrading.FromString,
                 )
+        self.simTrading2 = channel.stream_stream(
+                '/tradingpb.TradingDB2/simTrading2',
+                request_serializer=tradingdb2__pb2.RequestSimTrading.SerializeToString,
+                response_deserializer=tradingdb2__pb2.ReplySimTrading.FromString,
+                )
 
 
 class TradingDB2Servicer(object):
@@ -93,6 +98,13 @@ class TradingDB2Servicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def simTrading2(self, request_iterator, context):
+        """simTrading2 - simulation trading
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
 
 def add_TradingDB2Servicer_to_server(servicer, server):
     rpc_method_handlers = {
@@ -123,6 +135,11 @@ def add_TradingDB2Servicer_to_server(servicer, server):
             ),
             'simTrading': grpc.unary_unary_rpc_method_handler(
                     servicer.simTrading,
+                    request_deserializer=tradingdb2__pb2.RequestSimTrading.FromString,
+                    response_serializer=tradingdb2__pb2.ReplySimTrading.SerializeToString,
+            ),
+            'simTrading2': grpc.stream_stream_rpc_method_handler(
+                    servicer.simTrading2,
                     request_deserializer=tradingdb2__pb2.RequestSimTrading.FromString,
                     response_serializer=tradingdb2__pb2.ReplySimTrading.SerializeToString,
             ),
@@ -234,6 +251,23 @@ class TradingDB2(object):
             timeout=None,
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/tradingpb.TradingDB2/simTrading',
+            tradingdb2__pb2.RequestSimTrading.SerializeToString,
+            tradingdb2__pb2.ReplySimTrading.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def simTrading2(request_iterator,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.stream_stream(request_iterator, target, '/tradingpb.TradingDB2/simTrading2',
             tradingdb2__pb2.RequestSimTrading.SerializeToString,
             tradingdb2__pb2.ReplySimTrading.FromString,
             options, channel_credentials,
