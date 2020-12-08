@@ -645,6 +645,6 @@ def simTradings(cfg, lstParams: list, ignoreCache: bool = False) -> list:
     for response in responses:
         if len(response.pnl) > 0:
             pnl = response.pnl[0]
-            lstRes.append({'title': '', 'pnl': pnl.total})
+            lstRes.append({'title': pnl.title, 'pnl': pnl.total})
 
     return lstRes
