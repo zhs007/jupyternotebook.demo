@@ -6,6 +6,7 @@ import yaml
 from datetime import datetime
 import time
 
+__all__ = ['simTradings']
 
 def genSimTradingParams(cfg, title, lstParams: list, ignoreCache: bool = False):
     for i in range(len(lstParams)):

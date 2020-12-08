@@ -11,7 +11,7 @@ from google.protobuf import symbol_database as _symbol_database
 _sym_db = _symbol_database.Default()
 
 
-import trading2_pb2 as trading2__pb2
+import libtrading2.trading2_pb2 as trading2__pb2
 
 
 DESCRIPTOR = _descriptor.FileDescriptor(
