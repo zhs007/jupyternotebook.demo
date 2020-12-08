@@ -133,5 +133,6 @@ dmypy.json
 .ipython
 .pki
 .bash_history
+.vscode-server
 
 trdb2.yaml
