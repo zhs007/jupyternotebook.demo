@@ -563,6 +563,7 @@ def buildPNLReport(lstpnl: list) -> pd.DataFrame:
         'maxPerUpYear': [],
         'maxDownYear': [],
         'maxPerDownYear': [],
+        'perWinRate': [],
     }
 
     for v in lstpnl:
@@ -619,6 +620,12 @@ def buildPNLReport(lstpnl: list) -> pd.DataFrame:
         fv0['maxDownYear'].append(datetime.fromtimestamp(
             v['pnl'].maxDownYearTs).strftime('%Y-%m-%d'))
         fv0['maxPerDownYear'].append(v['pnl'].maxPerDownYear)
+
+        if v['pnl'].sellTimes + v['pnl'].stoplossTimes == 0:
+            fv0['perWinRate'].append(0)
+        else:
+            fv0['perWinRate'].append(
+                v['pnl'].winTimes * 1.0 / (v['pnl'].sellTimes + v['pnl'].stoplossTimes))
 
     return pd.DataFrame(fv0)
 
