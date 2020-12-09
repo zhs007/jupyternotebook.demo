@@ -662,6 +662,22 @@ def calcPNLWinRateInYear(pnl: trading2_pb2.PNLAssetData, year: int) -> dict:
     winnums = 0
     buynums = 0
 
+    if year == -1:
+        for v in pnl.lstCtrl:
+            if v.type == trading2_pb2.CtrlType.CTRL_SELL:
+                sellnums = sellnums + 1
+                if v.sellPrice > v.averageHoldingPrice:
+                    winnums = winnums + 1
+            if v.type == trading2_pb2.CtrlType.CTRL_BUY:
+                buynums = buynums + 1
+
+        ret = {'sellnums': sellnums, 'winnums': winnums,
+               'winrate': 0, 'buynums': buynums}
+        if sellnums > 0:
+            ret['winrate'] = winnums * 1.0 / sellnums
+
+        return ret
+
     for v in pnl.lstCtrl:
         dt = datetime.fromtimestamp(v.ts)
         if dt.year == year:
@@ -700,14 +716,19 @@ def buildPNLWinRateReportYear(lstpnl: list) -> tuple:
     }
 
     for y in range(minyear, maxyear + 1):
-        fv0['{}'.format(y)] = []
+        fv0['y{}'.format(y)] = []
 
         for v in lstpnl:
             if y == minyear:
                 fv0['title'].append(v['title'])
 
             ret = calcPNLWinRateInYear(v['pnl'], y)
-            fv0['{}'.format(y)].append(ret['winrate'])
+            fv0['y{}'.format(y)].append(ret['winrate'])
+
+    fv0['total'] = []
+    for v in lstpnl:
+        ret = calcPNLWinRateInYear(v['pnl'], -1)
+        fv0['total'].append(ret['winrate'])
 
     # print(fv0)
 
@@ -723,6 +744,38 @@ def showHeatmap(df: pd.DataFrame, columns: list):
         for col in columns:
             data[index].append(row[col])
 
+    # print(data)
+
+    fig = go.Figure(data=go.Heatmap(
+        z=data,
+        x=columns,
+        y=df['title']))
+
+    fig.show()
+
+
+def showHeatmapWinRateYear(df: pd.DataFrame, minyear: int, maxyear: int):
+    columns = []
+
+    for y in range(minyear, maxyear + 1):
+        columns.append('y{}'.format(y))
+
+    columns.append('total')
+
+    # print(columns)
+
+    showHeatmap(df, columns)
+
+
+def showHeatmap2(df: pd.DataFrame, columns: list):
+    data = []
+
+    for index, row in df.iterrows():
+        data.append([])
+
+        for col in columns:
+            data[index].append(abs(row[col] - 0.5))
+
     fig = go.Figure(data=go.Heatmap(
         z=data,
         x=columns,
@@ -732,10 +785,12 @@ def showHeatmap(df: pd.DataFrame, columns: list):
     fig.show()
 
 
-def showHeatmapWinRateYear(df: pd.DataFrame, minyear: int, maxyear: int):
+def showHeatmapWinRateYear2(df: pd.DataFrame, minyear: int, maxyear: int):
     columns = []
 
-    for y in range(minyear, maxyear):
-        columns.append('{}'.format(y))
+    for y in range(minyear, maxyear + 1):
+        columns.append('y{}'.format(y))
 
-    showHeatmap(df, columns)
+    columns.append('total')
+
+    showHeatmap2(df, columns)
