@@ -673,7 +673,7 @@ def calcPNLWinRateInYear(pnl: trading2_pb2.PNLAssetData, year: int) -> dict:
     return ret
 
 
-def buildPNLWinRateReportYear(lstpnl: list) -> pd.DataFrame:
+def buildPNLWinRateReportYear(lstpnl: list) -> tuple:
     minyear = 0
     maxyear = 0
 
@@ -704,4 +704,31 @@ def buildPNLWinRateReportYear(lstpnl: list) -> pd.DataFrame:
 
     # print(fv0)
 
-    return pd.DataFrame(fv0)
+    return (pd.DataFrame(fv0), minyear, maxyear)
+
+
+def showHeatmap(df: pd.DataFrame, columns: list):
+    data = []
+
+    for index, row in df.iterrows():
+        data.append([])
+
+        for col in columns:
+            data[index].append(row[col])
+
+    fig = go.Figure(data=go.Heatmap(
+        z=data,
+        x=columns,
+        y=df['title'],
+        hoverongaps=False))
+
+    fig.show()
+
+
+def showHeatmapWinRateYear(df: pd.DataFrame, minyear: int, maxyear: int):
+    columns = []
+
+    for y in range(minyear, maxyear):
+        columns.append('{}'.format(y))
+
+    showHeatmap(df, columns)
