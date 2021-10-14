@@ -136,3 +136,5 @@ dmypy.json
 .vscode-server
 
 trdb2.yaml
+home/*.ipynb
+home/*.xlsx
