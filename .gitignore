@@ -138,3 +138,4 @@ dmypy.json
 trdb2.yaml
 home/*.ipynb
 home/*.xlsx
+home/block7/*.html
