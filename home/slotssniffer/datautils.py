@@ -289,18 +289,6 @@ def genDataframeModeReels(lstbg, lstfg):
 
     return df
 
-def genDataframeWinnings(lstbg, lstfg):
-    wins = analyzeWins(lstbg, lstfg)
-    
-    data = {'winnings':[], 'times': []}
-    for k in wins:
-        data['winnings'].append(k)
-        data['times'].append(wins[k])
-        
-    df = pd.DataFrame.from_dict(data)
-    
-    return df
-
 def showWinningsPie(df):
     fig = go.Figure(data=[go.Pie(labels=df['winnings'], values=df['times'])])
     fig.update_layout(title_text='Probability Of Winnings')
@@ -445,3 +433,128 @@ def genMysterySymbolReveal(lstbg, lstfg):
     
     return df   
     
+def mergeValues(objVal, lst):
+    nObjVal = {}
+    
+    for k in objVal:
+        nk = lst[0]
+        
+        if k > nk:
+            for nv in lst:
+                if k >= nv:
+                    nk = nv
+                else:
+                    break
+        
+        if nk in nObjVal:
+            nObjVal[nk] = nObjVal[nk] + objVal[k]
+        else:
+            nObjVal[nk] = objVal[k]
+    
+    return nObjVal
+
+def genDataframeWinnings(lstbg, lstfg):
+    wins = analyzeWins(lstbg, lstfg)
+    
+#     wins = mergeValues(wins, [0, 1, 2, 3, 5, 10, 20, 30, 50, 100, 200, 300, 500, 1000])
+    
+    data = {'winnings':[], 'times': []}
+    for k in wins:
+        data['winnings'].append(k)
+        data['times'].append(wins[k])
+        
+    df = pd.DataFrame.from_dict(data)
+    
+    return df
+
+def genDataframeWinningsEx(lstbg, lstfg, lstrange):
+    wins = analyzeWins(lstbg, lstfg)
+    
+    wins = mergeValues(wins, lstrange)
+    
+    data = {'winnings':[], 'times': []}
+    for k in wins:
+        data['winnings'].append(k)
+        data['times'].append(wins[k])
+        
+    df = pd.DataFrame.from_dict(data)
+    
+    return df
+
+def analyzeMysterySymbolSize(data, obj):
+    for x in range(len(data)):
+        arr = data[x]
+        
+        for y in range(len(arr)):
+            v = arr[y]
+            
+            k = "{}-{}".format(x, y)
+            if k not in obj:
+                obj[k] = {}
+                
+            if v not in obj[k]:
+                obj[k][v] = 1
+            else:
+                obj[k][v] = obj[k][v] + 1
+    
+    return obj
+
+def findMysterySymbolSize(lstbg, lstfg):
+    bg = {}
+    fg = {}
+    
+    for v in lstbg:
+        bg = analyzeMysterySymbolSize(v['game']['mysterySymbolSizes'], bg)
+            
+    for arr in lstfg:
+        for i in range(len(arr)):
+            v = arr[i]
+            
+            if i == 0:
+                bg = analyzeMysterySymbolSize(v['game']['mysterySymbolSizes'], bg)
+            else:
+                fg = analyzeMysterySymbolSize(v['game']['mysterySymbolSizes'], fg)
+    
+    return bg, fg
+
+def genMysterySymbolSize(lstbg, lstfg):
+    bg, fg = findMysterySymbolSize(lstbg, lstfg)
+    
+    lstbgnums = {}
+    lstfgnums = {}    
+    
+    for obj in bg:
+        for v in bg[obj]:
+            if v not in lstbgnums:
+                lstbgnums[v] = 1
+                
+    for obj in fg:
+        for v in fg[obj]:
+            if v not in lstfgnums:
+                lstfgnums[v] = 1                
+    
+    data = {' Mystery Symbol Pos': []}
+    for v in lstbgnums:
+        data['BG Size {} probability'.format(v)] = []
+        
+    for v in lstfgnums:
+        data['FG Size {} probability'.format(v)] = []        
+    
+    for k in bg:
+        data[' Mystery Symbol Pos'].append(k)
+        
+        for v in lstbgnums:
+            if v in bg[k]:
+                data['BG Size {} probability'.format(v)].append(bg[k][v])
+            else:
+                data['BG Size {} probability'.format(v)].append(0)
+            
+        for v in lstfgnums:
+            if v in fg[k]:
+                data['FG Size {} probability'.format(v)].append(fg[k][v])            
+            else:
+                data['FG Size {} probability'.format(v)].append(0)                            
+                    
+    df = pd.DataFrame.from_dict(data)
+    
+    return df
